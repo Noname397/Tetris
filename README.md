@@ -1,10 +1,18 @@
-# My Personal Project
+# My Personal Project: Miniball
 
 ## A subtitle
+What will the application do?
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+Who will use it?
+Anyone 
 
-An example of text with **bold** and *italic* fonts.  
+Why is this project of interest to you?
+I have always been a football/soccer fanatic since I first watched the replayed Champions League final between Bayern Munich and Chelsea back in 2012.
+
+Some of my user stories include *bulleted*:
+- As a user, I want to be able to play multiplayer.
+- As a user, I want to be able to make up my own team.
+- As a user, I want to be able to change players if necessary.
+- As a user, I want to be able to create my own kit for the team.
+
+- An example of text with **bold** and *italic* fonts.  
