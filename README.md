@@ -22,4 +22,4 @@ Some of my user stories include:
 - As a user, I want to be able to change some game settings, for example: game sound and fan sound. 
 - As a user, I want to be able to view live statistics and scores for my team and other teams in the league so that I can
 stay up-to-date on how my team is performing.
-- An example of text with **bold** and *italic* fonts.  
+  
