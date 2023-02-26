@@ -50,13 +50,11 @@ public class Shape {
 //        coords[index][1] = y;
 //    }
 
-    public int xcoord(int index) {
-
+    public int coordX(int index) {
         return coords[index][0];
     }
 
-    public int ycoord(int index) {
-
+    public int coordY(int index) {
         return coords[index][1];
     }
 
@@ -64,13 +62,13 @@ public class Shape {
         return pieceShape;
     }
 
-//    public void setRandomShape() {
-//        var r = new Random();
-//        int x = Math.abs(r.nextInt()) % 7 + 1;
-//
-//        Tetrominoe[] values = Tetrominoe.values();
-//        setShape(values[x]);
-//    }
+    public void setRandomShape() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(7) + 1;
+
+        Tetrominoe[] values = Tetrominoe.values();
+        setShape(values[randomNumber]);
+    }
 
 //    public int minX() {
 //
