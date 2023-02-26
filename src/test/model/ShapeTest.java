@@ -132,8 +132,16 @@ class ShapeTest {
     }
 
     @Test
+    void testGetShape(){
+        test.setShape(Shape.Tetrominoe.LShape);
+        assertEquals(Shape.Tetrominoe.LShape,test.getShape());
+    }
+    @Test
     void testSetRandomShape(){
-
+        test.setRandomShape();
+        Shape.Tetrominoe s = test.getShape();
+        int pos = s.ordinal();
+        assertTrue(0 <= pos && pos <= 7);
     }
 
     @Test

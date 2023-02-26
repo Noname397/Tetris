@@ -5,8 +5,13 @@ import model.exceptions.EmptyNameException;
 import model.exceptions.OutOfBoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PlayersListTest {
     PlayersList test;
@@ -64,6 +69,27 @@ public class PlayersListTest {
     }
 
     @Test
+    void testRemovePlayerEmptyList() throws EmptyNameException, OutOfBoundException, EmptyListException {
+        assertThrows(EmptyListException.class, () -> {
+            test.removePlayer(1);
+        });
+        assertThrows(EmptyListException.class, () -> {
+            test.removePlayer(0);
+        });
+    }
+
+    @Test
+    void testRemovePlayerOutOfBound() throws EmptyNameException, OutOfBoundException, EmptyListException {
+        test.addPlayer(new Player("A"));
+        assertThrows(OutOfBoundException.class, () -> {
+            test.removePlayer(-1);
+        });
+        assertThrows(OutOfBoundException.class, () -> {
+            test.removePlayer(100);
+        });
+    }
+
+    @Test
     void testLength() throws EmptyNameException {
         assertEquals(0,test.length());
         test.addPlayer(new Player("A"));
@@ -75,7 +101,7 @@ public class PlayersListTest {
     }
 
     @Test
-    void testIndex() throws EmptyNameException, OutOfBoundException, EmptyListException {
+    void testIndexNoException() throws EmptyNameException, OutOfBoundException, EmptyListException {
         test.addPlayer(new Player("A"));
         test.addPlayer(new Player("B"));
         test.addPlayer(new Player("C"));
@@ -85,8 +111,38 @@ public class PlayersListTest {
     }
 
     @Test
-    void testPrintOut(){
-
+    void testIndexEmptyList() throws EmptyNameException, OutOfBoundException, EmptyListException {
+        assertThrows(EmptyListException.class, () -> {
+            test.index(0);
+        });
     }
 
+    @Test
+    void testIndexOutOfBound() throws EmptyNameException, OutOfBoundException, EmptyListException {
+        test.addPlayer(new Player("A"));
+        assertThrows(OutOfBoundException.class, () -> {
+            test.index(-1);
+        });
+        assertThrows(OutOfBoundException.class, () -> {
+            test.index(100);
+        });
+    }
+
+    @Test
+    void testPrintOutNoPlayer(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        test.printOut();
+        assertEquals("There's no player in the list", outContent.toString().trim());
+    }
+
+    @Test
+    void testPrintOutMultiplePlayers() throws EmptyNameException {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        test.addPlayer(new Player("A"));
+        test.addPlayer(new Player("B"));
+        test.printOut();
+        assertEquals("Player 1: A\n"+ "Player 2: B", outContent.toString().trim());
+    }
 }

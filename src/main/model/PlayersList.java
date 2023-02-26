@@ -43,7 +43,7 @@ public class PlayersList {
             System.out.print("There's no player in the list");
         } else {
             for (int i = 0; i < listOfPlayers.size(); ++i) {
-                System.out.println("Player " + (i + 1) + ": " + listOfPlayers.get(i).getName() + "\n");
+                System.out.println("Player " + (i + 1) + ": " + listOfPlayers.get(i).getName());
             }
         }
     }
