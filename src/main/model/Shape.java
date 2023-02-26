@@ -64,13 +64,13 @@ public class Shape {
         return pieceShape;
     }
 
-    public void setRandomShape() {
-        var r = new Random();
-        int x = Math.abs(r.nextInt()) % 7 + 1;
-
-        Tetrominoe[] values = Tetrominoe.values();
-        setShape(values[x]);
-    }
+//    public void setRandomShape() {
+//        var r = new Random();
+//        int x = Math.abs(r.nextInt()) % 7 + 1;
+//
+//        Tetrominoe[] values = Tetrominoe.values();
+//        setShape(values[x]);
+//    }
 
 //    public int minX() {
 //
