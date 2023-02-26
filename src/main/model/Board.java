@@ -5,9 +5,9 @@ import static model.Shape.*;
 import java.util.Timer;
 
 public class Board {
-    private final int BOARD_WIDTH = 10;
-    private final int BOARD_HEIGHT = 22;
-    private final int PERIOD_INTERVAL = 300;
+//    private final int BOARD_WIDTH = 10;
+//    private final int BOARD_HEIGHT = 22;
+//    private final int PERIOD_INTERVAL = 300;
 
     private Timer timer;
     private boolean isFallingFinished = false;
@@ -27,8 +27,8 @@ public class Board {
 //        return (int) getSize().getHeight() / BOARD_HEIGHT;
 //    }
 
-    private Tetrominoe shapeAt(int x, int y) {
-        return board[(y * BOARD_WIDTH) + x];
-    }
+ //   private Tetrominoe shapeAt(int x, int y) {
+ //       return board[(y * BOARD_WIDTH) + x];
+ //   }
 
 }
