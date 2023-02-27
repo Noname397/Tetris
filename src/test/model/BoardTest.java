@@ -56,4 +56,22 @@ public class BoardTest {
     void testGetCurPiece(){
         assertEquals(Shape.Tetrominoe.NoShape,test.getCurPiece());
     }
+
+    @Test
+    void testPause(){
+        test.pause();
+        assertTrue(test.isPaused());
+    }
+
+    @Test
+    void testIsFullLine(){
+        assertFalse(test.isFullLine(2));
+        assertFalse(test.isFullLine(3));
+    }
+
+    @Test
+    void testRemoveFullLine(){
+        test.removeFullLines();
+        assertEquals(0,test.getNumLinesRemoved());
+    }
 }

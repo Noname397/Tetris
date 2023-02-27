@@ -37,4 +37,10 @@ public class PlayerTest {
     void testGetName(){
         assertEquals("A",test.getName());
     }
+
+    @Test
+    void testNewScore(){
+        test.newScore(100);
+        assertEquals(100,test.getScore());
+    }
 }
