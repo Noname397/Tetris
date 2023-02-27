@@ -59,6 +59,9 @@ public class TetrisApp {
             case "s":
                 doStartGame();
                 break;
+            case "hs":
+                doViewScore();
+                break;
             default:
                 System.out.println("Selection invalid...");
                 break;
@@ -81,6 +84,7 @@ public class TetrisApp {
         System.out.println("\ta -> add new player");
         System.out.println("\tr -> remove existing player");
         System.out.println("\tv -> view the players in the game");
+        System.out.println("\ths -> view the highscores in the game");
         System.out.println("\ts -> start game");
         System.out.println("\tq -> quit game");
     }
@@ -97,7 +101,7 @@ public class TetrisApp {
         } catch (EmptyNameException e) {
             System.out.println("Name must be at least a character long!!!!\n");
         }
-        playersList.printOut();
+        doViewPlayer();
     }
 
     // MODIFIES: this
@@ -114,15 +118,28 @@ public class TetrisApp {
         } catch (EmptyListException e) {
             System.out.print("Can't remove a player from an empty list!!!");
         }
-        playersList.printOut();
+        doViewPlayer();
     }
 
     private void doViewPlayer() {
-        playersList.printOut();
+        if (playersList.length() == 0) {
+            System.out.print("There's no player in the list");
+        } else {
+            for (int i = 0; i < playersList.length(); ++i) {
+                try {
+                    System.out.println("Player " + (i + 1) + ": " + playersList.index(i).getName());
+                } catch (OutOfBoundException e) {
+                    throw new RuntimeException(e);
+                } catch (EmptyListException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     private void doStartGame() {
         for (int i = 0;i < playersList.length();++i) {
+            System.out.println("Player " + (i + 1) + "'s game starts now!!!");
             Board b = new Board();
             b.start();
             while (!b.isGameFinished()) {
@@ -131,6 +148,14 @@ public class TetrisApp {
                 String cmd = input.nextLine();
                 b.keyPressed(cmd);
                 b.update();
+            }
+            try {
+                playersList.index(i).newScore(b.getNumLinesRemoved());
+                System.out.println("Game over!!! Score for player " + (i + 1) + "is" + playersList.index(i).getScore());
+            } catch (OutOfBoundException e) {
+                throw new RuntimeException(e);
+            } catch (EmptyListException e) {
+                throw new RuntimeException(e);
             }
         }
         keepGoing = false;
@@ -145,5 +170,21 @@ public class TetrisApp {
         System.out.println("\tl -> lower the piece");
         System.out.println("\tp -> pause game");
         System.out.println("\tq -> quit game");
+    }
+
+    private void doViewScore() {
+        if (playersList.length() == 0) {
+            System.out.print("There's no player in the list");
+        } else {
+            for (int i = 0; i < playersList.length(); ++i) {
+                try {
+                    System.out.println("Player " + (i + 1) + ": " + playersList.index(i).getScore());
+                } catch (OutOfBoundException e) {
+                    throw new RuntimeException(e);
+                } catch (EmptyListException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 }

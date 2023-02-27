@@ -128,21 +128,4 @@ public class PlayersListTest {
         });
     }
 
-    @Test
-    void testPrintOutNoPlayer(){
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        test.printOut();
-        assertEquals("There's no player in the list", outContent.toString().trim());
-    }
-
-    @Test
-    void testPrintOutMultiplePlayers() throws EmptyNameException {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        test.addPlayer(new Player("A"));
-        test.addPlayer(new Player("B"));
-        test.printOut();
-        assertEquals("Player 1: A\n"+ "Player 2: B", outContent.toString().trim());
-    }
 }

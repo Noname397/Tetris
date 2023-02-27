@@ -2,34 +2,35 @@ package model;
 
 import static model.Shape.*;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Timer;
-
 public class Board {
     private static final int BOARD_WIDTH = 10;
-    private static final int BOARD_HEIGHT = 22;
+    private static final int BOARD_HEIGHT = 12;
 
-    private Timer timer;
-    private boolean isFallingFinished = false;
-    private boolean isPaused = false;
-    private boolean isGameFinished = false;
-    private int numLinesRemoved = 0;
-    private int curX = 0;
-    private int curY = 0;
+    private boolean isFallingFinished;
+    private boolean isPaused;
+    private boolean isGameFinished;
+    private int numLinesRemoved;
+    private int curX;
+    private int curY;
     private Shape curPiece;
     private Tetrominoe[] board;
 
     public Board() {
-        start();
+        // start();
+        isFallingFinished = false;
+        isPaused = false;
+        isGameFinished = false;
+        numLinesRemoved = 0;
+        curX = 0;
+        curY = 0;
     }
 
-    // EFFECT: return the coordinate of the shape at column x, row y ???
-    private Tetrominoe shapeAt(int x, int y) {
+    // EFFECTS: return the coordinate of the shape at column x, row y
+    public Tetrominoe shapeAt(int x, int y) {
         return board[(y * BOARD_WIDTH) + x];
     }
 
-    // EFFECT: start the tetris game.
+    // EFFECTS: start the tetris game.
     public void start() {
         curPiece = new Shape();
         board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
@@ -38,7 +39,7 @@ public class Board {
     }
 
     // MODIFIES: this
-    // EFFECT: pause the game
+    // EFFECTS: pause the game
     public void pause() {
         isPaused = !isPaused;
         if (isPaused) {
@@ -49,8 +50,8 @@ public class Board {
     }
 
     // MODIFIES: this
-    // EFFECT: drop the current piece down.
-    private void dropDown() {
+    // EFFECTS: drop the current piece down and return the y-position of the current shape.
+    public int dropDown() {
         int newY = curY;
         while (newY > 0) {
             if (!tryMove(curPiece, curX, newY - 1)) {
@@ -59,24 +60,25 @@ public class Board {
             newY--;
         }
         pieceDropped();
+        return newY;
     }
 
-    // EFFECT: move the falling piece down one line until it is fully dropped.
-    private void oneLineDown() {
+    // EFFECTS: move the falling piece down one line until it is fully dropped.
+    public void oneLineDown() {
         if (!tryMove(curPiece, curX, curY - 1)) {
             pieceDropped();
         }
     }
 
-    private void clearBoard() {
+    public void clearBoard() {
         for (int i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
             board[i] = Tetrominoe.NoShape;
         }
     }
 
-    // EFFECT: put the falling piece into the board array, then remove the lines if
+    // EFFECTS: put the falling piece into the board array, then remove the lines if
     // possible and finally add a new piece after finished falling.
-    private void pieceDropped() {
+    public void pieceDropped() {
         for (int i = 0; i < 4; i++) {
             int x = curX + curPiece.coordX(i);
             int y = curY - curPiece.coordY(i);
@@ -88,8 +90,8 @@ public class Board {
         }
     }
 
-    // EFFECT: add a new Tetrominoe to the game.
-    private void newPiece() {
+    // EFFECTS: add a new Tetrominoe to the game.
+    public void newPiece() {
         curPiece.setRandomShape();
         int m = curPiece.coordY(0);
         for (int i = 0; i < 4; i++) {
@@ -104,9 +106,9 @@ public class Board {
         }
     }
 
-    // EFFECT: returns false if it has reached the board boundaries, or it
+    // EFFECTS: returns false if it has reached the board boundaries, or it
     // is adjacent to the already fallen Tetris pieces.
-    private boolean tryMove(Shape newPiece, int newX, int newY) {
+    public boolean tryMove(Shape newPiece, int newX, int newY) {
         for (int i = 0; i < 4; i++) {
             int x = newX + newPiece.coordX(i);
             int y = newY - newPiece.coordY(i);
@@ -123,8 +125,8 @@ public class Board {
         return true;
     }
 
-    // EFFECT: return true if the line i is fully fulfilled.
-    private boolean isFullLine(int i) {
+    // EFFECTS: return true if the line i is fully fulfilled.
+    public boolean isFullLine(int i) {
         for (int j = 0; j < BOARD_WIDTH; j++) {
             if (shapeAt(j, i) == Tetrominoe.NoShape) {
                 return false;
@@ -133,8 +135,8 @@ public class Board {
         return true;
     }
 
-    // EFFECT: remove the line and increase the counter by 1 if it is full.
-    private void removeFullLines() {
+    // EFFECTS: remove the line and increase the counter by 1 if it is full.
+    public void removeFullLines() {
         int numFullLines = 0;
         for (int i = BOARD_HEIGHT - 1; i >= 0; i--) {
             if (isFullLine(i)) {
@@ -155,15 +157,9 @@ public class Board {
         }
     }
 
-
-    private void doGameCycle() {
-        update();
-    }
-
-    // EFFECT: return the next state of the game.
+    // EFFECTS: return the next state of the game.
     public void update() {
         if (isGameFinished) {
-            System.out.println("Game over. Your score is " + numLinesRemoved);
             return;
         } else if (isPaused) {
             return;
@@ -203,5 +199,25 @@ public class Board {
 
     public boolean isGameFinished() {
         return isGameFinished;
+    }
+
+    public boolean isFallingFinished() {
+        return isFallingFinished;
+    }
+
+    public int getNumLinesRemoved() {
+        return numLinesRemoved;
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public int getCurX() {
+        return curX;
+    }
+
+    public int getCurY() {
+        return curY;
     }
 }
