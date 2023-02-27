@@ -194,8 +194,8 @@ public class TetrisApp {
 
     private void doTutorial() {
         System.out.println("If you're new at Tetris, try to avoid doing a Hard Drop as this can swiftly drop a "
-           +  "Tetrimino to the bottom and prevent you from fixing a mistake. \nIn general, you should utilise the"
-                + "typical pace at which Tetriminos decline.");
+                +  "Tetrimino to the bottom and prevent you from fixing a mistake. \nIn general, you should utilise"
+                + " the typical pace at which Tetriminos decline.");
     }
 
 }
