@@ -52,4 +52,8 @@ public class BoardTest {
         assertEquals(0,test.getCurY());
     }
 
+    @Test
+    void testGetCurPiece(){
+        assertEquals(Shape.Tetrominoe.NoShape,test.getCurPiece());
+    }
 }

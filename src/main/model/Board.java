@@ -16,13 +16,13 @@ public class Board {
     private Tetrominoe[] board;
 
     public Board() {
-        // start();
         isFallingFinished = false;
         isPaused = false;
         isGameFinished = false;
         numLinesRemoved = 0;
         curX = 0;
         curY = 0;
+        start();
     }
 
     // EFFECTS: return the coordinate of the shape at column x, row y
@@ -34,43 +34,37 @@ public class Board {
     public void start() {
         curPiece = new Shape();
         board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
-        clearBoard();
+        emptyBoard();
         newPiece();
     }
 
     // MODIFIES: this
     // EFFECTS: pause the game
     public void pause() {
-        isPaused = !isPaused;
-        if (isPaused) {
-            System.out.println("Game paused");
-        } else {
-            System.out.println("Number of lines removed: " + numLinesRemoved);
-        }
+        isPaused = true;
     }
 
     // MODIFIES: this
-    // EFFECTS: drop the current piece down and return the y-position of the current shape.
-    public int dropDown() {
+    // EFFECTS: drop the current piece down.
+    public void dropDown() {
         int newY = curY;
         while (newY > 0) {
-            if (!tryMove(curPiece, curX, newY - 1)) {
+            if (!canMove(curPiece, curX, newY - 1)) {
                 break;
             }
             newY--;
         }
-        pieceDropped();
-        return newY;
+        pieceDroptoBottom();
     }
 
-    // EFFECTS: move the falling piece down one line until it is fully dropped.
+    // EFFECTS: move the falling piece fully dropped.
     public void oneLineDown() {
-        if (!tryMove(curPiece, curX, curY - 1)) {
-            pieceDropped();
+        if (!canMove(curPiece, curX, curY - 1)) {
+            pieceDroptoBottom();
         }
     }
 
-    public void clearBoard() {
+    public void emptyBoard() {
         for (int i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
             board[i] = Tetrominoe.NoShape;
         }
@@ -78,7 +72,7 @@ public class Board {
 
     // EFFECTS: put the falling piece into the board array, then remove the lines if
     // possible and finally add a new piece after finished falling.
-    public void pieceDropped() {
+    public void pieceDroptoBottom() {
         for (int i = 0; i < 4; i++) {
             int x = curX + curPiece.coordX(i);
             int y = curY - curPiece.coordY(i);
@@ -99,7 +93,7 @@ public class Board {
         }
         curX = BOARD_WIDTH / 2 + 1;
         curY = BOARD_HEIGHT - 1 + m;
-        if (!tryMove(curPiece, curX, curY)) {
+        if (!canMove(curPiece, curX, curY)) {
             curPiece.setShape(Tetrominoe.NoShape);
             isGameFinished = true;
             update();
@@ -108,14 +102,11 @@ public class Board {
 
     // EFFECTS: returns false if it has reached the board boundaries, or it
     // is adjacent to the already fallen Tetris pieces.
-    public boolean tryMove(Shape newPiece, int newX, int newY) {
+    public boolean canMove(Shape newPiece, int newX, int newY) {
         for (int i = 0; i < 4; i++) {
             int x = newX + newPiece.coordX(i);
             int y = newY - newPiece.coordY(i);
-            if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT) {
-                return false;
-            }
-            if (shapeAt(x, y) != Tetrominoe.NoShape) {
+            if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT || shapeAt(x, y) != Tetrominoe.NoShape) {
                 return false;
             }
         }
@@ -151,7 +142,6 @@ public class Board {
 
         if (numFullLines > 0) {
             numLinesRemoved += numFullLines;
-            System.out.print(numLinesRemoved);
             isFallingFinished = true;
             curPiece.setShape(Tetrominoe.NoShape);
         }
@@ -177,16 +167,16 @@ public class Board {
                 pause();
                 break;
             case "a":
-                tryMove(curPiece, curX - 1, curY);
+                canMove(curPiece, curX - 1, curY);
                 break;
             case "d":
-                tryMove(curPiece, curX + 1, curY);
+                canMove(curPiece, curX + 1, curY);
                 break;
             case "s":
-                tryMove(curPiece.rotateRight(), curX, curY);
+                canMove(curPiece.rotateRight(), curX, curY);
                 break;
             case "w":
-                tryMove(curPiece.rotateLeft(), curX, curY);
+                canMove(curPiece.rotateLeft(), curX, curY);
                 break;
             case " ":
                 dropDown();
@@ -219,5 +209,9 @@ public class Board {
 
     public int getCurY() {
         return curY;
+    }
+
+    public Shape getCurPiece() {
+        return curPiece;
     }
 }

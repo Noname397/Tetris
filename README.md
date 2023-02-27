@@ -13,6 +13,7 @@ Some of my user stories include:
 - As a user, I want to be able to view the current high-score records for the game.
 - As a user, I want to be able to choose the difficulty for the game.
 - As a user, I want to be able to change some game settings, for example: game sound and sound effect.
-- As a user, I want to be able to have a small tutorial so I can learn and understand the rules. 
+- As a player, I want to be able to pause and resume the game so that I can take a break or attend to other tasks without losing my progress. 
 
-  
+Source:
+TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp

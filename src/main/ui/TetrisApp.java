@@ -62,6 +62,9 @@ public class TetrisApp {
             case "hs":
                 doViewScore();
                 break;
+            case "tutor":
+                doTutorial();
+                break;
             default:
                 System.out.println("Selection invalid...");
                 break;
@@ -86,6 +89,7 @@ public class TetrisApp {
         System.out.println("\tv -> view the players in the game");
         System.out.println("\ths -> view the highscores in the game");
         System.out.println("\ts -> start game");
+        System.out.println("\ttutor -> learn the tutorial of the game");
         System.out.println("\tq -> quit game");
     }
 
@@ -187,4 +191,11 @@ public class TetrisApp {
             }
         }
     }
+
+    private void doTutorial() {
+        System.out.println("If you're new at Tetris, try to avoid doing a Hard Drop as this can swiftly drop a "
+           +  "Tetrimino to the bottom and prevent you from fixing a mistake. \nIn general, you should utilise the"
+                + "typical pace at which Tetriminos decline.");
+    }
+
 }

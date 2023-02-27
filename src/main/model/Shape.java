@@ -3,7 +3,6 @@ package model;
 import java.util.Random;
 
 public class Shape {
-    // EFFECTS:
     protected enum Tetrominoe {
         NoShape, ZShape, SShape, LineShape,
         TShape, SquareShape, LShape, MirroredLShape;
