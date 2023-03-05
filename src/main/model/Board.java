@@ -16,6 +16,10 @@ public class Board {
     public Board() {
         board = new int[BOARD_HEIGHT][BOARD_WIDTH];
         curPiece = new Shape();
+        isFallingFinished = false;
+        isGameFinished = false;
+        curX = 0;
+        curY = 0;
         clearBoard();
     }
 

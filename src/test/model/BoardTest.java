@@ -703,7 +703,6 @@ public class BoardTest extends Board{
         assertTrue(compareBoard(boardTest,test.getBoard()));
     }
 
-
     @Test
     void testOneLineDown(){
         test.addNewPiece();
@@ -732,7 +731,37 @@ public class BoardTest extends Board{
         assertTrue(compareBoard(boardTest,test.getBoard()));
     }
 
+    @Test
+    void testDropPieceGameOver(){
+        for (int i=1;i<=4;++i){
+            test.addNewPiece();
+            test.getCurPiece().setShape(Tetrominoe.LineShape);
+            test.getCurPiece().rotateLeft();
+            test.dropDown();
+        }
+        assertTrue(test.isGameFinished());
+    }
 
+
+    @Test
+    void testIsGameFinished(){
+        assertFalse(test.isGameFinished());
+    }
+
+    @Test
+    void testIsFallingFinished(){
+        assertFalse(test.isFallingFinished());
+    }
+
+    @Test
+    void testGetCurX(){
+        assertEquals(0,test.getCurX());
+    }
+
+    @Test
+    void testGetCurY(){
+        assertEquals(0,test.getCurY());
+    }
 
     private boolean compareBoard(int boardA[][], int boardB[][]){
         int boardWidth = test.getBoardWidth();
