@@ -5,10 +5,52 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-class ShapeTest {
-    // delete or rename this class!
+public class ShapeTest {
     Shape test;
+    // assume that int[][] at pos 0 is the original state, pos 1 is rotating right 1 times, 2 is 2 times, 3 is 3 times
+    public int [][][] rotationNoShape = {
+            {{0,0,0},{0,0,0}},
+            {{0,0},{0,0},{0,0}}
+    };
+    public int [][][] rotationZShape = {
+            {{1,1,0},{0,1,1}},
+            {{0,1},{1,1},{1,0}},
+            {{1,1,0},{0,1,1}},
+            {{0,1},{1,1},{1,0}},
+    };
+    public int[][][] rotationSShape = {
+            {{0,1,1},{1,1,0}},
+            {{1,0},{1,1},{0,1}},
+            {{0,1,1},{1,1,0}},
+            {{1,0},{1,1},{0,1}}
+    };
+    public int[][][] rotationLineShape = {
+            {{1,1,1,1}},
+            {{1},{1},{1},{1}},
+            {{1,1,1,1}},
+            {{1},{1},{1},{1}}
+    };
+    public int[][][] rotationTShape = {
+            {{0,1,0},{1,1,1}},
+            {{1,0},{1,1},{1,0}},
+            {{1,1,1},{0,1,0}},
+            {{0,1},{1,1},{0,1}}
+    };
+    public int[][][] rotationSquareShape =
+            {{{1,1},{1,1},{1,1}}};
+    public int[][][] rotationLShape = {
+            {{0,0,1},{1,1,1}},
+            {{1,0},{1,0},{1,1}},
+            {{1,1,1},{1,0,0}},
+            {{1,1},{0,1},{0,1}}
+    };
+    public int[][][] rotationMirroredLShape = {
+            {{1,0,0},{1,1,1}},
+            {{1,1},{1,0},{1,0}},
+            {{1,1,1},{0,0,1}},
+            {{0,1},{0,1},{1,1}}
+    };
+    public int coordTest[][];
 
     @BeforeEach
     void runBefore(){
@@ -17,881 +59,722 @@ class ShapeTest {
 
     @Test
     void testConstructor(){
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        assertEquals(test.getPieceShape(),Tetrominoe.NoShape);
+        coordTest = rotationNoShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testSetShapeNoShape(){
-        test.setShape(Shape.Tetrominoe.NoShape);
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        test.setShape(Tetrominoe.NoShape);
+        coordTest = rotationNoShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testSetShapeZShape(){
-        test.setShape(Shape.Tetrominoe.ZShape);
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(-1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        test.setShape(Tetrominoe.ZShape);
+        coordTest = rotationZShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testSetShapeSShape(){
-        test.setShape(Shape.Tetrominoe.SShape);
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        test.setShape(Tetrominoe.SShape);
+        coordTest = rotationSShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testSetShapeLineShape(){
-        test.setShape(Shape.Tetrominoe.LineShape);
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(2,test.coordY(3));
+        test.setShape(Tetrominoe.LineShape);
+        coordTest = rotationLineShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testSetShapeTShape(){
-        test.setShape(Shape.Tetrominoe.TShape);
-        assertEquals(-1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        test.setShape(Tetrominoe.TShape);
+        coordTest = rotationTShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testSetShapeSquareShape(){
-        test.setShape(Shape.Tetrominoe.SquareShape);
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        test.setShape(Tetrominoe.SquareShape);
+        coordTest = rotationSquareShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testSetShapeLShape(){
-        test.setShape(Shape.Tetrominoe.LShape);
-        assertEquals(-1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(-1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        test.setShape(Tetrominoe.LShape);
+        coordTest = rotationLShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testSetShapeMirroredLShape(){
-        test.setShape(Shape.Tetrominoe.MirroredLShape);
-        assertEquals(1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(-1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        test.setShape(Tetrominoe.MirroredLShape);
+        coordTest = rotationMirroredLShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
-    void testGetShape(){
-        test.setShape(Shape.Tetrominoe.LShape);
-        assertEquals(Shape.Tetrominoe.LShape,test.getShape());
-    }
-    @Test
     void testSetRandomShape(){
         test.setRandomShape();
-        Shape.Tetrominoe s = test.getShape();
-        int pos = s.ordinal();
-        assertTrue(0 <= pos && pos <= 7);
+        switch (test.getPieceShape()){
+            case SquareShape:
+                coordTest = rotationSquareShape[0];
+                assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+                break;
+            case SShape:
+                coordTest = rotationSShape[0];
+                assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+                break;
+            case LShape:
+                coordTest = rotationLShape[0];
+                assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+                break;
+            case LineShape:
+                coordTest = rotationLineShape[0];
+                assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+                break;
+            case ZShape:
+                coordTest = rotationZShape[0];
+                assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+                break;
+            case TShape:
+                coordTest = rotationTShape[0];
+                assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+                break;
+            default:
+                coordTest = rotationMirroredLShape[0];
+                assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+                break;
+        }
     }
 
     @Test
     void testRotateLeftOnceNoShape(){
-        test.setShape(Shape.Tetrominoe.NoShape);
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-    }
-
-    @Test
-    void testRotateLeftOnceZShape(){
-        test.setShape(Shape.Tetrominoe.ZShape);
-        test.rotateLeft();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
-    }
-
-    @Test
-    void testRotateLeftSShape(){
-        test.setShape(Shape.Tetrominoe.SShape);
-        test.rotateLeft();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(-1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
-    }
-
-    @Test
-    void testRotateLeftLineShape(){
-        test.setShape(Shape.Tetrominoe.LineShape);
-        test.rotateLeft();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(2,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-    }
-
-    @Test
-    void testRotateLeftTShape(){
-        test.setShape(Shape.Tetrominoe.TShape);
-        test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(-1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-    }
-
-    @Test
-    void testRotateLeftSquareShape(){
-        test.setShape(Shape.Tetrominoe.SquareShape);
-        test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
-    }
-
-    @Test
-    void testRotateLeftLShape(){
-        test.setShape(Shape.Tetrominoe.LShape);
-        test.rotateLeft();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(-1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-    }
-
-    @Test
-    void testRotateLeftMirroredLShape(){
-        test.setShape(Shape.Tetrominoe.MirroredLShape);
-        test.rotateLeft();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(-1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationNoShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateLeftMultipleTimesNoShape(){
-        test.setShape(Shape.Tetrominoe.NoShape);
         test.rotateLeft();
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationNoShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationNoShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationNoShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateLeftOnceZShape(){
+        test.setShape(Tetrominoe.ZShape);
+        test.rotateLeft();
+        coordTest = rotationZShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateLeftMultipleTimesZShape(){
-        test.setShape(Shape.Tetrominoe.ZShape);
+        test.setShape(Tetrominoe.ZShape);
         test.rotateLeft();
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
+        coordTest = rotationZShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(-1,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
+        coordTest = rotationZShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(-1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationZShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateLeftOnceSShape(){
+        test.setShape(Tetrominoe.SShape);
+        test.rotateLeft();
+        coordTest = rotationSShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateLeftMultipleTimesSShape(){
-        test.setShape(Shape.Tetrominoe.SShape);
+        test.setShape(Tetrominoe.SShape);
         test.rotateLeft();
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(-1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
+        coordTest = rotationSShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationSShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationSShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateLeftOnceLineShape(){
+        test.setShape(Tetrominoe.LineShape);
+        test.rotateLeft();
+        coordTest = rotationLineShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateLeftMultipleTimesLineShape(){
-        test.setShape(Shape.Tetrominoe.LineShape);
+        test.setShape(Tetrominoe.LineShape);
         test.rotateLeft();
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(-1,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(-2,test.coordY(3));
+        coordTest = rotationLineShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(-1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-2,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationLineShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(2,test.coordY(3));
+        coordTest = rotationLineShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateLeftOnceTShape(){
+        test.setShape(Tetrominoe.TShape);
+        test.rotateLeft();
+        coordTest = rotationTShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateLeftMultipleTimesTShape(){
-        test.setShape(Shape.Tetrominoe.TShape);
+        test.setShape(Tetrominoe.TShape);
         test.rotateLeft();
         test.rotateLeft();
-        assertEquals(1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(-1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
+        coordTest = rotationTShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationTShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationTShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateLeftOnceSquareShape(){
+        test.setShape(Tetrominoe.SquareShape);
+        test.rotateLeft();
+        coordTest = rotationSquareShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateLeftMultipleTimesSquareShape(){
-        test.setShape(Shape.Tetrominoe.SquareShape);
+        test.setShape(Tetrominoe.SquareShape);
         test.rotateLeft();
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationSquareShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationSquareShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationSquareShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateLeftOnceLShape(){
+        test.setShape(Tetrominoe.LShape);
+        test.rotateLeft();
+        coordTest = rotationLShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateLeftMultipleTimesLShape(){
-        test.setShape(Shape.Tetrominoe.LShape);
+        test.setShape(Tetrominoe.LShape);
         test.rotateLeft();
         test.rotateLeft();
-        assertEquals(1,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
+        coordTest = rotationLShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationLShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(-1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationLShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateLeftOnceMirroredLShape(){
+        test.setShape(Tetrominoe.MirroredLShape);
+        test.rotateLeft();
+        coordTest = rotationMirroredLShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateLeftMultipleTimesMirroredLShape(){
-        test.setShape(Shape.Tetrominoe.MirroredLShape);
+        test.setShape(Tetrominoe.MirroredLShape);
         test.rotateLeft();
         test.rotateLeft();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
+        coordTest = rotationMirroredLShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(1,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationMirroredLShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateLeft();
-        assertEquals(1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(-1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationMirroredLShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
+
     @Test
     void testRotateRightNoShape(){
-        test.setShape(Shape.Tetrominoe.NoShape);
+        test.setShape(Tetrominoe.NoShape);
         test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-    }
-
-    @Test
-    void testRotateRightOnceZShape(){
-        test.setShape(Shape.Tetrominoe.ZShape);
+        coordTest = rotationNoShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateRight();
-        assertEquals(1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(-1,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
-    }
-
-    @Test
-    void testRotateRightSShape(){
-        test.setShape(Shape.Tetrominoe.SShape);
+        coordTest = rotationNoShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateRight();
-        assertEquals(1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
-    }
-
-    @Test
-    void testRotateRightLineShape(){
-        test.setShape(Shape.Tetrominoe.LineShape);
+        coordTest = rotationNoShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
         test.rotateRight();
-        assertEquals(1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(-1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-2,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-    }
-
-    @Test
-    void testRotateRightTShape(){
-        test.setShape(Shape.Tetrominoe.TShape);
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationNoShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateRightSquareShape(){
-        test.setShape(Shape.Tetrominoe.SquareShape);
+        test.setShape(Tetrominoe.SquareShape);
         test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+        coordTest = rotationSquareShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationSquareShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationSquareShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationSquareShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateRightZShape(){
+        test.setShape(Tetrominoe.ZShape);
+        test.rotateRight();
+        coordTest = rotationZShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationZShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationZShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationZShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateRightSShape(){
+        test.setShape(Tetrominoe.SShape);
+        test.rotateRight();
+        coordTest = rotationSShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationSShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationSShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationSShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateRightLineShape(){
+        test.setShape(Tetrominoe.LineShape);
+        test.rotateRight();
+        coordTest = rotationLineShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationLineShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationLineShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationLineShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+    }
+
+    @Test
+    void testRotateRightTShape(){
+        test.setShape(Tetrominoe.TShape);
+        test.rotateRight();
+        coordTest = rotationTShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationTShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationTShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationTShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateRightLShape(){
-        test.setShape(Shape.Tetrominoe.LShape);
+        test.setShape(Tetrominoe.LShape);
         test.rotateRight();
-        assertEquals(1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationLShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationLShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationLShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationLShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
     void testRotateRightMirroredLShape(){
-        test.setShape(Shape.Tetrominoe.MirroredLShape);
+        test.setShape(Tetrominoe.MirroredLShape);
         test.rotateRight();
-        assertEquals(1,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+        coordTest = rotationMirroredLShape[1];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationMirroredLShape[2];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationMirroredLShape[3];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        test.rotateRight();
+        coordTest = rotationMirroredLShape[0];
+        assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
-    void testRotateRightMultipleTimesNoShape(){
-        test.setShape(Shape.Tetrominoe.NoShape);
-        test.rotateRight();
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(0,test.coordY(3));
+    void testGetCoords(){
+        assertTrue(compareShape(rotationNoShape[0],test.getCoords(),test.getRow(),test.getColumn()));
     }
 
     @Test
-    void testRotateRightMultipleTimesZShape(){
-        test.setShape(Shape.Tetrominoe.ZShape);
-        test.rotateRight();
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
-        test.rotateRight();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(-1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+    void testGetPieceShape(){
+        test.setShape(Tetrominoe.NoShape);
+        assertEquals(Tetrominoe.NoShape,test.getPieceShape());
+        test.setShape(Tetrominoe.ZShape);
+        assertEquals(Tetrominoe.ZShape,test.getPieceShape());
+        test.setShape(Tetrominoe.SShape);
+        assertEquals(Tetrominoe.SShape,test.getPieceShape());
+        test.setShape(Tetrominoe.LineShape);
+        assertEquals(Tetrominoe.LineShape,test.getPieceShape());
+        test.setShape(Tetrominoe.TShape);
+        assertEquals(Tetrominoe.TShape,test.getPieceShape());
+        test.setShape(Tetrominoe.SquareShape);
+        assertEquals(Tetrominoe.SquareShape,test.getPieceShape());
+        test.setShape(Tetrominoe.LShape);
+        assertEquals(Tetrominoe.LShape,test.getPieceShape());
+        test.setShape(Tetrominoe.MirroredLShape);
+        assertEquals(Tetrominoe.MirroredLShape,test.getPieceShape());
     }
 
     @Test
-    void testRotateRightMultipleTimesSShape(){
-        test.setShape(Shape.Tetrominoe.SShape);
-        test.rotateRight();
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(-1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(-1,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
-        test.rotateRight();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(-1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+    void testGetSize(){
+        test.setShape(Tetrominoe.NoShape);
+        assertEquals(3,test.getRow(),test.getColumn());
+        test.setShape(Tetrominoe.ZShape);
+        assertEquals(3,test.getRow(),test.getColumn());
+        test.setShape(Tetrominoe.SShape);
+        assertEquals(3,test.getRow(),test.getColumn());
+        test.setShape(Tetrominoe.LineShape);
+        assertEquals(4,test.getRow(),test.getColumn());
+        test.setShape(Tetrominoe.TShape);
+        assertEquals(3,test.getRow(),test.getColumn());
+        test.setShape(Tetrominoe.SquareShape);
+        assertEquals(2,test.getRow(),test.getColumn());
+        test.setShape(Tetrominoe.LShape);
+        assertEquals(3,test.getRow(),test.getColumn());
+        test.setShape(Tetrominoe.MirroredLShape);
+        assertEquals(3,test.getRow(),test.getColumn());
     }
 
-    @Test
-    void testRotateRightMultipleTimesLineShape(){
-        test.setShape(Shape.Tetrominoe.LineShape);
-        test.rotateRight();
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(-1,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(-2,test.coordY(3));
-        test.rotateRight();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(2,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(2,test.coordY(3));
-    }
+//    @Test
+//    void testGetAllZeroColLeft(){
+//        test.setShape(Tetrominoe.NoShape);
+//        assertEquals(3,test.getAllZeroColLeft());
+//        test.setShape(Tetrominoe.ZShape);
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColLeft());
+//        test.setShape(Tetrominoe.LShape);
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColLeft());
+//        test.setShape(Tetrominoe.MirroredLShape);
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColLeft());
+//        test.setShape(Tetrominoe.SShape);
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColLeft());
+//        test.setShape(Tetrominoe.SquareShape);
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.setShape(Tetrominoe.LineShape);
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(2,test.getAllZeroColLeft());
+//        test.setShape(Tetrominoe.TShape);
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColLeft());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColLeft());
+//    }
+//
+//    @Test
+//    void testGetAllZeroColRight(){
+//        test.setShape(Tetrominoe.NoShape);
+//        assertEquals(3,test.getAllZeroColRight());
+//        test.setShape(Tetrominoe.ZShape);
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.setShape(Tetrominoe.LShape);
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.setShape(Tetrominoe.MirroredLShape);
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.setShape(Tetrominoe.SShape);
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.setShape(Tetrominoe.SquareShape);
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.setShape(Tetrominoe.LineShape);
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(2,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColRight());
+//        test.setShape(Tetrominoe.TShape);
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroColRight());
+//    }
+//
+//    @Test
+//    void testGetAllZeroRowUp(){
+//        test.setShape(Tetrominoe.NoShape);
+//        assertEquals(3,test.getAllZeroRowUp());
+//        test.setShape(Tetrominoe.ZShape);
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.setShape(Tetrominoe.LShape);
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.setShape(Tetrominoe.MirroredLShape);
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.setShape(Tetrominoe.SShape);
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.setShape(Tetrominoe.SquareShape);
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.setShape(Tetrominoe.LineShape);
+//        assertEquals(1,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(2,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.setShape(Tetrominoe.TShape);
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroRowUp());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowUp());
+//    }
+//
+//    @Test
+//    void testGetAllZeroRowDown(){
+//        test.setShape(Tetrominoe.NoShape);
+//        assertEquals(3,test.getAllZeroRowDown());
+//        test.setShape(Tetrominoe.ZShape);
+//        assertEquals(1,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.setShape(Tetrominoe.LShape);
+//        assertEquals(1,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.setShape(Tetrominoe.MirroredLShape);
+//        assertEquals(1,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.setShape(Tetrominoe.SShape);
+//        assertEquals(1,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.setShape(Tetrominoe.SquareShape);
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.setShape(Tetrominoe.LineShape);
+//        assertEquals(2,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(1,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.setShape(Tetrominoe.TShape);
+//        assertEquals(1,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//        test.rotateLeft();
+//        assertEquals(0,test.getAllZeroRowDown());
+//    }
 
-    @Test
-    void testRotateRightMultipleTimesTShape(){
-        test.setShape(Shape.Tetrominoe.TShape);
-        test.rotateRight();
-        test.rotateRight();
-        assertEquals(1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(-1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(-1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-        test.rotateRight();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(1,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(1,test.coordY(3));
-    }
 
-    @Test
-    void testRotateRightMultipleTimesSquareShape(){
-        test.setShape(Shape.Tetrominoe.SquareShape);
-        test.rotateRight();
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
-        test.rotateRight();
-        assertEquals(0,test.coordX(0));
-        assertEquals(0,test.coordY(0));
-        assertEquals(1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(1,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(1,test.coordY(3));
-    }
-
-    @Test
-    void testRotateRightMultipleTimesLShape(){
-        test.setShape(Shape.Tetrominoe.LShape);
-        test.rotateRight();
-        test.rotateRight();
-        assertEquals(1,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
-        test.rotateRight();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(-1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-        test.rotateRight();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(-1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(1,test.coordY(3));
-    }
-
-    @Test
-    void testRotateRightMultipleTimesMirroredLShape(){
-        test.setShape(Shape.Tetrominoe.MirroredLShape);
-        test.rotateRight();
-        test.rotateRight();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(-1,test.coordY(3));
-        test.rotateRight();
-        assertEquals(-1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(-1,test.coordX(1));
-        assertEquals(0,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(1,test.coordX(3));
-        assertEquals(0,test.coordY(3));
-        test.rotateRight();
-        assertEquals(1,test.coordX(0));
-        assertEquals(-1,test.coordY(0));
-        assertEquals(0,test.coordX(1));
-        assertEquals(-1,test.coordY(1));
-        assertEquals(0,test.coordX(2));
-        assertEquals(0,test.coordY(2));
-        assertEquals(0,test.coordX(3));
-        assertEquals(1,test.coordY(3));
+    private boolean compareShape(int a[][],int b[][],int row, int column) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; ++j) {
+                if (a[i][j]!= b[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

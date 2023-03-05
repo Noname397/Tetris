@@ -1,7 +1,7 @@
 package ui;
 
 
-import model.Board;
+import model.BoardLinhTinh;
 import model.Player;
 import model.PlayersList;
 import model.exceptions.EmptyListException;
@@ -144,7 +144,7 @@ public class TetrisApp {
     private void doStartGame() {
         for (int i = 0;i < playersList.length();++i) {
             System.out.println("Player " + (i + 1) + "'s game starts now!!!");
-            Board b = new Board();
+            BoardLinhTinh b = new BoardLinhTinh();
             b.start();
             while (!b.isGameFinished()) {
                 displayGameMenu();
