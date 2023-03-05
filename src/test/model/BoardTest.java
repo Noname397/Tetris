@@ -708,8 +708,11 @@ public class BoardTest extends Board{
     void testOneLineDown(){
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.MirroredLShape);
-        test.setCurX(10);
+        test.setCurX(9);
         test.oneLineDown();
+        System.out.println(test.getCurX());
+        test.oneLineDown();
+        System.out.println(test.getCurX());
         int[][] boardTest = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -724,11 +727,11 @@ public class BoardTest extends Board{
                 {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
         };
+        test.printOutBoard();
 
         assertTrue(compareBoard(boardTest,test.getBoard()));
     }
 
-    @Test
 
 
     private boolean compareBoard(int boardA[][], int boardB[][]){

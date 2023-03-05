@@ -45,6 +45,8 @@ public class Board {
     public void oneLineDown() {
         if (!tryMove(curPiece,curX + 1,curY)) {
             pieceDropped();
+        } else {
+            curX++;
         }
     }
 
