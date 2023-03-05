@@ -5,7 +5,6 @@ public class Board {
     private static final int BOARD_HEIGHT = 12;
 
     private boolean isFallingFinished;
-    private boolean isPaused;
     private boolean isGameFinished;
     private int numLinesRemoved;
     private int curX;
@@ -30,33 +29,19 @@ public class Board {
         }
     }
 
-    public void setPaused() {
-        isPaused = true;
-        update();
-    }
-
-    public void update() {
-
-    }
 
     // MODIFIES: this
     // EFFECTS: drop the shape to the furthest position down as possible.
     public void dropDown() {
-        int newX = curX;
-//        while (newX < BOARD_HEIGHT) {
-//            if (!tryMove(curPiece, newX + 1, curY)) {
-//                break;
-//            }
-//            newX++;
-//        }
-        while (tryMove(curPiece, newX + 1, curY)) {
-            ++newX;
+        while (tryMove(curPiece, curX + 1, curY)) {
+            ++curX;
         }
-        curX = newX;
-        System.out.println("Pos of x is " + newX);
+        System.out.println("Pos of x is " + curX);
         pieceDropped();
     }
 
+    // MODIFIES: this
+    // EFFECTS: drop the shape one line down.
     public void oneLineDown() {
         if (!tryMove(curPiece,curX + 1,curY)) {
             pieceDropped();
@@ -67,9 +52,16 @@ public class Board {
     // EFFECTS: puts the falling piece into the board 2D array. Then remove all full lines and add a new piece.
     public void pieceDropped() {
         // set the falling piece to the correct pos
-
+        int shapeHeight = curPiece.getRow();
+        int shapeWidth = curPiece.getColumn();
+        for (int i = curX; i < curX + shapeHeight; ++i) {
+            for (int j = curY;j < curY + shapeWidth;++j) {
+                board[i][j] = curPiece.getCoords()[i - curX][j - curY];
+            }
+        }
 
         removeFullLine();
+        isFallingFinished = true;
         if (!isFallingFinished) {
             addNewPiece();
         }
@@ -94,7 +86,7 @@ public class Board {
     // EFFECTS: return true if all values in row index is 1
     public boolean canRemoveLine(int index) {
         for (int i = 0;i < BOARD_WIDTH;++i) {
-            if (board[index][i] == 1) {
+            if (board[index][i] == 0) {
                 return false;
             }
         }
@@ -109,7 +101,7 @@ public class Board {
         curY = BOARD_WIDTH / 2;
         if (!tryMove(curPiece,curX,curY)) {
             isGameFinished = true;
-            update();
+//            update();
         }
     }
 
@@ -138,8 +130,54 @@ public class Board {
 
     // EFFECTS: return the current falling shape.
     public Shape getCurPiece() {
-        System.out.println(curPiece.getPieceShape());
         return curPiece;
+    }
+
+    // EFFECTS: return the board width
+    public int getBoardWidth() {
+        return BOARD_WIDTH;
+    }
+
+    // EFFECTS: return the board height
+    public int getBoardHeight() {
+        return BOARD_HEIGHT;
+    }
+
+    // EFFECTS: return the board coordinates.
+    public int[][] getBoard() {
+        return board;
+    }
+
+    // EFFECTS: return the current row pos of falling piece.
+    public int getCurX() {
+        return curX;
+    }
+
+    // EFFECTS: return the current col pos of falling piece.
+    public int getCurY() {
+        return curY;
+    }
+
+    // EFFECTS: return true if the game is over.
+    public boolean isGameFinished() {
+        return isGameFinished;
+    }
+
+    // EFFECTS: return true if the piece has stopped falling.
+    public boolean isFallingFinished() {
+        return isFallingFinished;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set the falling piece to a specific row
+    public void setCurX(int curX) {
+        this.curX = curX;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set the falling piece to a specific col
+    public void setCurY(int curY) {
+        this.curY = curY;
     }
 
     public void printOutBoard() {

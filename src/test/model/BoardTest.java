@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BoardTest {
+public class BoardTest extends Board{
     Board test;
     Shape shape;
 
@@ -424,12 +424,326 @@ public class BoardTest {
     }
 
     @Test
-    void testDropDown(){
-//        test.addNewPiece();
-//        test.getCurPiece();
-//        test.dropDown();
-//        test.printOutBoard();
-        shape.setShape(Tetrominoe.LShape);
-        assertTrue(test.tryMove(shape,10,6));
+    void testDropDownZShapeEmptyBoard(){
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.ZShape);
+        Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
     }
+
+    @Test
+    void testDropDownSShapeEmptyBoard(){
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.SShape);
+        Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+    }
+
+    @Test
+    void testDropDownLineShapeEmptyBoard(){
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.LineShape);
+        Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.LineShape);
+        test.getCurPiece().rotateLeft();
+        fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+    }
+    @Test
+    void testDropDownTShapeEmptyBoard(){
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.TShape);
+        Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.TShape);
+        fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+    }
+
+    @Test
+    void testDropDownSquareShapeEmptyBoard(){
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.SquareShape);
+        Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.SquareShape);
+        fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        boardTest = new int[][] {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+    }
+
+    @Test
+    void testDropDownLShapeEmptyBoard(){
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.LShape);
+        Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.LShape);
+        fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        test.printOutBoard();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+    }
+
+    @Test
+    void testDropDownMirroredLShapeEmptyBoard(){
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.MirroredLShape);
+        Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+//        test.printOutBoard();
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+        };
+
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.MirroredLShape);
+        fallingPiece = test.getCurPiece().getPieceShape();
+        System.out.println(fallingPiece);
+        test.dropDown();
+        boardTest = new int[][] {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+        };
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+    }
+
+
+    @Test
+    void testOneLineDown(){
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.MirroredLShape);
+        test.setCurX(10);
+        test.oneLineDown();
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+        };
+
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+    }
+
+    @Test
+
+
+    private boolean compareBoard(int boardA[][], int boardB[][]){
+        int boardWidth = test.getBoardWidth();
+        int boardHeight = test.getBoardHeight();
+        for (int i = 0;i < boardHeight;++i) {
+            for (int j = 0;j < boardWidth;++j){
+                if (boardA[i][j] != boardB[i][j]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
 }
