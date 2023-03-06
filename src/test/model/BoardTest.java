@@ -742,6 +742,309 @@ public class BoardTest extends Board{
         assertTrue(test.isGameFinished());
     }
 
+    @Test
+    void testRemoveFullLineOnce(){
+        for (int i=0;i<3;++i){
+            test.addNewPiece();
+            test.getCurPiece().setShape(Tetrominoe.LineShape);
+            test.setCurY(4 * i);
+            test.dropDown();
+            test.removeFullLine();
+        }
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+        };
+        test.printOutBoard();
+
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+    }
+
+    @Test
+    void testRemoveFullLineTwoLines(){
+        for (int i=0;i<3;++i){
+            test.addNewPiece();
+            test.getCurPiece().setShape(Tetrominoe.LineShape);
+            test.setCurY(4 * i);
+            test.dropDown();
+            test.addNewPiece();
+            test.getCurPiece().setShape(Tetrominoe.LineShape);
+            test.setCurY(4 * i);
+            test.dropDown();
+        }
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+        };
+        test.printOutBoard();
+
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+    }
+
+    @Test
+    void testRemoveSeveralLines(){
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.SquareShape);
+        test.setCurY(0);
+        test.dropDown();
+        int[][] boardTest = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+        };
+        // test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.LShape);
+        test.setCurY(2);
+        test.dropDown();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
+        };
+        //test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.LineShape);
+        test.setCurY(5);
+        test.dropDown();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
+        };
+        //test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.SquareShape);
+        test.setCurY(2);
+        test.dropDown();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
+        };
+        //test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.MirroredLShape);
+        test.getCurPiece().rotateLeft();
+        test.setCurY(10);
+        test.dropDown();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+        };
+        //test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.LineShape);
+        test.setCurY(5);
+        test.dropDown();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+        };
+        //test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.LineShape);
+        test.setCurY(0);
+        test.dropDown();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+        };
+        //test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.TShape);
+        test.getCurPiece().rotateRight();
+        test.getCurPiece().rotateRight();
+        test.setCurY(4);
+        test.dropDown();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+        };
+        //test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.SquareShape);
+        test.getCurPiece().rotateRight();
+        test.getCurPiece().rotateRight();
+        test.setCurY(7);
+        test.dropDown();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
+                {0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+        };
+        //test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.MirroredLShape);
+        test.getCurPiece().rotateRight();
+        test.setCurY(10);
+        test.dropDown();
+        boardTest = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+                {0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+        };
+        //test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+        test.addNewPiece();
+        test.getCurPiece().setShape(Tetrominoe.LineShape);
+        test.getCurPiece().rotateRight();
+        test.setCurY(9);
+        test.dropDown();
+        boardTest = new int[][]{
+//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+//                {0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1},
+//                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+//                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1},
+        };
+        test.printOutBoard();
+        assertTrue(compareBoard(boardTest,test.getBoard()));
+
+    }
+
 
     @Test
     void testIsGameFinished(){

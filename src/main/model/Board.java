@@ -62,32 +62,48 @@ public class Board {
         int shapeWidth = curPiece.getColumn();
         for (int i = curX; i < curX + shapeHeight; ++i) {
             for (int j = curY;j < curY + shapeWidth;++j) {
-                board[i][j] = curPiece.getCoords()[i - curX][j - curY];
+                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
             }
         }
 
         removeFullLine();
         isFallingFinished = true;
-        if (!isFallingFinished) {
-            addNewPiece();
-        }
+//        addNewPiece();
     }
 
     // MODIFIES: this
     // EFFECTS: remove every full 1 lines in the board.
     public void removeFullLine() {
         int numLineRemoved = 0;
-        for (int i = BOARD_HEIGHT - 1; i >= 0;--i) {
-            if (canRemoveLine(i)) {
+        int row = BOARD_HEIGHT;
+        int col = BOARD_WIDTH;
+        int[][] newBoard = new int[row][col];
+        int newRow = row - 1;
+
+        for (int i = row - 1; i >= 0; i--) {
+            if (!canRemoveLine(i)) {
+                // Copy the current row to the new board
+                for (int j = 0; j < col; j++) {
+                    newBoard[newRow][j] = board[i][j];
+                }
+                newRow--;
+            } else {
                 ++numLineRemoved;
             }
         }
 
-        if (numLineRemoved > 0) {
-            // drag all values down to the exact no of lines removed.
+        // Fill the remaining rows with 0's
+        while (newRow >= 0) {
+            for (int j = 0; j < col; j++) {
+                newBoard[newRow][j] = 0;
+            }
+            newRow--;
         }
 
+        // Update the board
+        board = newBoard;
     }
+
 
     // EFFECTS: return true if all values in row index is 1
     public boolean canRemoveLine(int index) {
