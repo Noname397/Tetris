@@ -2,7 +2,6 @@ package ui;
 
 
 import model.Board;
-import model.BoardLinhTinh;
 import model.Player;
 import model.PlayersList;
 import model.exceptions.EmptyListException;
@@ -15,6 +14,7 @@ public class TetrisApp {
     private Scanner input;
     boolean keepGoing;
     private PlayersList playersList;
+    private Board board;
 
     // EFFECTS: runs the tetris application
     public TetrisApp() {
@@ -141,66 +141,70 @@ public class TetrisApp {
     private void doStartGame() {
         for (int i = 0;i < playersList.length();++i) {
             System.out.println("Player " + (i + 1) + "'s game starts now!!!");
-            Board board = new Board();
-            while (!board.isFallingFinished()) {
-                update(board);
-            }
+            board = new Board();
+
         }
         keepGoing = false;
     }
 
-    private void update(Board board) {
-        displayGameMenu();
-        input = new Scanner(System.in);
-        String commend = input.next();
-        if (board.isGameFinished()) {
-            System.out.println("Game over!! Score: " + "1");
-        } else if (board.isFallingFinished()) {
-            board.addNewPiece();
-            board.setCurrentPos();
-            printOutBoard(board);
-        } else {
-            processGameMenu(board,commend);
-            board.setCurrentPos();
-            printOutBoard(board);
-            // processGameMenu(board);
-            // board.oneLineDown();
-        }
-    }
+//    private void update(Board board) {
+//        displayGameMenu();
+//        input = new Scanner(System.in);
+//        String commend = input.next();
+//        if (board.isGameFinished()) {
+//            System.out.println("Game over!! Score: " + "1");
+//        } else if (board.isFallingFinished()) {
+//            board.addNewPiece();
+//            board.setCurrentPos();
+//            printOutBoard(board);
+//        } else {
+//            processGameMenu(board,commend);
+//            board.setCurrentPos();
+//            printOutBoard(board);
+//            // processGameMenu(board);
+//            // board.oneLineDown();
+//        }
+//    }
 
-    public void printOutBoard(Board b) {
-        int [][] board = b.getBoard();
-        int height = b.getBoardHeight();
-        int width = b.getBoardWidth();
+    public void printOutBoard() {
+        int [][] b = board.getBoard();
+        int height = board.getBoardHeight();
+        int width = board.getBoardWidth();
         for (int i = 0;i < height;++i) {
             for (int j = 0;j < width;++j) {
-                System.out.print(board[i][j] + " ");
+                System.out.print(b[i][j] + " ");
             }
             System.out.println();
         }
     }
 
-    private void processGameMenu(Board board,String command) {
+    private void processGameMenu(String command) {
         switch (command) {
             case "a":
+                System.out.println("Turning left");
                 board.tryMove(board.getCurPiece(),board.getCurX(),board.getCurY() - 1);
                 break;
             case "d":
+                System.out.println("Turning right");
                 board.tryMove(board.getCurPiece(), board.getCurX(), board.getCurY() + 1);
                 break;
             case "w":
+                System.out.println("rotating right");
                 board.getCurPiece().rotateRight();
                 break;
 //            case "s":
 //                board.getCurPiece().rotateLeft();
 //                break;
             case "l":
+                System.out.println("One line down");
                 board.oneLineDown();
                 break;
             case "p":
+                System.out.println("paused");
                 board.setGamePaused();
                 break;
             case "q":
+                System.out.println("finished");
                 board.setGameFinished();
                 break;
             default:

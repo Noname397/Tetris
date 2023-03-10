@@ -16,7 +16,7 @@ public class Board {
     public Board() {
         board = new int[BOARD_HEIGHT][BOARD_WIDTH];
         curPiece = new Shape();
-        isFallingFinished = false;
+        isFallingFinished = true;
         isGameFinished = false;
         isGamePaused = false;
         curX = 0;
@@ -60,7 +60,7 @@ public class Board {
     // EFFECTS: puts the falling piece into the board 2D array. Then remove all full lines and add a new piece.
     public void pieceDropped() {
         // set the falling piece to the correct pos
-        setCurrentPos();
+        setCurrentPos(curX,curY,curX,curY);
         removeFullLine();
         isFallingFinished = true;
     }
@@ -119,10 +119,13 @@ public class Board {
         curPiece.setRandomShape();
         curX = 0;
         curY = BOARD_WIDTH / 2;
+        System.out.println("type of shape:" + curPiece.getPieceShape().name());
+        System.out.println("pos x:" + curX);
+        System.out.println("pos y:" + curY);
         if (!tryMove(curPiece,curX,curY)) {
             isGameFinished = true;
         } else {
-            setCurrentPos();
+            setCurrentPos(curX,curY,curX,curY);
         }
 
     }
@@ -134,7 +137,6 @@ public class Board {
 
         // Check if the shape is out of bounds
         if (newX < 0 || newX + shapeHeight > BOARD_HEIGHT || newY < 0 || newY + shapeWidth > BOARD_WIDTH) {
-            setCurrentPos();
             return false;
         }
 
@@ -142,14 +144,13 @@ public class Board {
         for (int i = 0; i < shapeHeight; i++) {
             for (int j = 0; j < shapeWidth; j++) {
                 if (newPiece.getCoords()[i][j] == 1 && board[newX + i][newY + j] == 1) {
-                    setCurrentPos();
                     return false;
                 }
             }
         }
 
         // If we get here, the shape can fit on the board
-        setCurrentPos();
+        setCurrentPos(curX,curY,newX,newY);
         return true;
     }
 
@@ -237,12 +238,19 @@ public class Board {
     }
 
     // EFFECTS: set the falling piece to the correct pos
-    public void setCurrentPos() {
+    public void setCurrentPos(int oldX,int oldY,int newX,int newY) {
         int shapeHeight = curPiece.getRow();
         int shapeWidth = curPiece.getColumn();
-        for (int i = curX; i < curX + shapeHeight; ++i) {
-            for (int j = curY;j < curY + shapeWidth;++j) {
-                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
+        // reset old place with 0.
+        for (int i = oldX; i < oldX + shapeHeight; ++i) {
+            for (int j = oldY;j < oldY + shapeWidth;++j) {
+                board[i][j] = 0;
+            }
+        }
+
+        for (int i = newX; i < newX + shapeHeight; ++i) {
+            for (int j = newY;j < newY + shapeWidth;++j) {
+                board[i][j] += curPiece.getCoords()[i - newX][j - newY];
             }
         }
     }

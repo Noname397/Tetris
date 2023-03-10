@@ -1053,7 +1053,7 @@ public class BoardTest extends Board{
 
     @Test
     void testIsFallingFinished(){
-        assertFalse(test.isFallingFinished());
+        assertTrue(test.isFallingFinished());
     }
 
     @Test
