@@ -40,7 +40,8 @@ public class Board {
     // EFFECTS: drop the shape to the furthest position down as possible.
     public void dropDown() {
         while (tryMove(curPiece, curX + 1, curY)) {
-            ++curX;
+//            ++curX;
+//            System.out.println("Da xet x = " + curX);
         }
         System.out.println("Pos of x is " + curX);
         pieceDropped();
@@ -52,7 +53,9 @@ public class Board {
         if (!tryMove(curPiece,curX + 1,curY)) {
             pieceDropped();
         } else {
+            resetPreviousPos();
             curX++;
+            setFallingPiece();
         }
     }
 
@@ -60,7 +63,13 @@ public class Board {
     // EFFECTS: puts the falling piece into the board 2D array. Then remove all full lines and add a new piece.
     public void pieceDropped() {
         // set the falling piece to the correct pos
-        setCurrentPos(curX,curY,curX,curY);
+        int shapeHeight = curPiece.getRow();
+        int shapeWidth = curPiece.getColumn();
+        for (int i = curX; i < curX + shapeHeight;++i) {
+            for (int j = curY; j < curY + shapeWidth;++j) {
+                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
+            }
+        }
         removeFullLine();
         isFallingFinished = true;
     }
@@ -115,19 +124,17 @@ public class Board {
     // MODIFIES: this
     // EFFECTS: add a new random piece to the board. If can't add, game is over.
     public void addNewPiece() {
-        isFallingFinished = false;
         curPiece.setRandomShape();
         curX = 0;
         curY = BOARD_WIDTH / 2;
-        System.out.println("type of shape:" + curPiece.getPieceShape().name());
-        System.out.println("pos x:" + curX);
-        System.out.println("pos y:" + curY);
+//        System.out.println("The following state is " + curPiece.getPieceShape().name());
+//        System.out.println("pos x:" + curX);
+//        System.out.println("pos y:" + curY);
         if (!tryMove(curPiece,curX,curY)) {
             isGameFinished = true;
-        } else {
-            setCurrentPos(curX,curY,curX,curY);
         }
-
+        //resetPreviousPos();
+        //setFallingPiece();
     }
 
     // EFFECTS: return true if a piece can be placed at row newX and col newY.
@@ -150,7 +157,8 @@ public class Board {
         }
 
         // If we get here, the shape can fit on the board
-        setCurrentPos(curX,curY,newX,newY);
+        curX = newX;
+        curY = newY;
         return true;
     }
 
@@ -218,6 +226,12 @@ public class Board {
         isGameFinished = true;
     }
 
+    // MODIFIES: this
+    // EFFECTS: set isFallingFinish = false;
+    public void setFallingFinished() {
+        isFallingFinished = false;
+    }
+
     // EFFECTS: return the score of the board.
     public int getScore() {
         return score;
@@ -237,24 +251,26 @@ public class Board {
         }
     }
 
-    // EFFECTS: set the falling piece to the correct pos
-    public void setCurrentPos(int oldX,int oldY,int newX,int newY) {
+    public void setFallingPiece() {
         int shapeHeight = curPiece.getRow();
         int shapeWidth = curPiece.getColumn();
-        // reset old place with 0.
-        for (int i = oldX; i < oldX + shapeHeight; ++i) {
-            for (int j = oldY;j < oldY + shapeWidth;++j) {
-                board[i][j] = 0;
-            }
-        }
-
-        for (int i = newX; i < newX + shapeHeight; ++i) {
-            for (int j = newY;j < newY + shapeWidth;++j) {
-                board[i][j] += curPiece.getCoords()[i - newX][j - newY];
+        for (int i = curX; i < curX + shapeHeight;++i) {
+            for (int j = curY; j < curY + shapeWidth;++j) {
+                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
             }
         }
     }
 
+    public void resetPreviousPos() {
+        int shapeHeight = curPiece.getRow();
+        int shapeWidth = curPiece.getColumn();
+        for (int i = curX; i < curX + shapeHeight;++i) {
+            for (int j = curY; j < curY + shapeWidth;++j) {
+                //board[i][j] -= curPiece.getCoords()[i - curX][j - curY];
+                board[i][j] = 0;
+            }
+        }
+    }
 
     public void printOutBoard() {
         for (int i = 0;i < 12;++i) {

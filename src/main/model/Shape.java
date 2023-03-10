@@ -78,12 +78,12 @@ public class Shape {
         row = tmp;
         coords = rotatedArr;
 
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                System.out.print(coords[i][j] + " ");
-            }
-            System.out.println();
-        }
+//        for (int i = 0; i < row; i++) {
+//            for (int j = 0; j < column; j++) {
+//                System.out.print(coords[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
     }
 
     // MODIFIES: this
@@ -101,12 +101,12 @@ public class Shape {
         row = tmp;
         coords = rotatedArr;
 
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                System.out.print(coords[i][j] + " ");
-            }
-            System.out.println();
-        }
+//        for (int i = 0; i < row; i++) {
+//            for (int j = 0; j < column; j++) {
+//                System.out.print(coords[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
     }
 
     // EFFECT: return the int coordinates of the shape

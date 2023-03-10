@@ -320,6 +320,8 @@ public class ShapeTest {
         test.rotateLeft();
         coordTest = rotationMirroredLShape[3];
         assertTrue(compareShape(coordTest,test.getCoords(),test.getRow(),test.getColumn()));
+        assertEquals(2,test.getColumn());
+        assertEquals(3,test.getRow());
     }
 
     @Test

@@ -142,29 +142,35 @@ public class TetrisApp {
         for (int i = 0;i < playersList.length();++i) {
             System.out.println("Player " + (i + 1) + "'s game starts now!!!");
             board = new Board();
-
+            while (!board.isGameFinished()) {
+                updateBoard();
+            }
+            System.out.println("Score: " + "111- " + board.getScore());
         }
         keepGoing = false;
     }
 
-//    private void update(Board board) {
-//        displayGameMenu();
-//        input = new Scanner(System.in);
-//        String commend = input.next();
-//        if (board.isGameFinished()) {
-//            System.out.println("Game over!! Score: " + "1");
-//        } else if (board.isFallingFinished()) {
-//            board.addNewPiece();
-//            board.setCurrentPos();
-//            printOutBoard(board);
-//        } else {
-//            processGameMenu(board,commend);
-//            board.setCurrentPos();
-//            printOutBoard(board);
-//            // processGameMenu(board);
-//            // board.oneLineDown();
-//        }
-//    }
+    public void updateBoard() {
+        if (board.isFallingFinished()) {
+            board.setFallingFinished();
+            board.addNewPiece();
+            System.out.println("The following shape is " + board.getCurPiece().getPieceShape().name());
+            printOutShape();
+            System.out.println("pos x:" + board.getCurX());
+            System.out.println("pos y:" + board.getCurY());
+        } else {
+            System.out.println("The current shape is " + board.getCurPiece().getPieceShape().name());
+            printOutShape();
+            System.out.println("The position of x (row) is " + board.getCurX());
+            System.out.println("The position of y (col) is " + board.getCurY());
+        }
+        printOutBoard();
+        displayGameMenu();
+        input = new Scanner(System.in);
+        System.out.print(">>>");
+        String cmd = input.nextLine();
+        processGameMenu(cmd);
+    }
 
     public void printOutBoard() {
         int [][] b = board.getBoard();
@@ -178,33 +184,36 @@ public class TetrisApp {
         }
     }
 
+    public void printOutShape() {
+        int [][] shape = board.getCurPiece().getCoords();
+        int row = board.getCurPiece().getRow();
+        int column = board.getCurPiece().getColumn();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                System.out.print(shape[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
     private void processGameMenu(String command) {
         switch (command) {
-            case "a":
-                System.out.println("Turning left");
+            case "left":
                 board.tryMove(board.getCurPiece(),board.getCurX(),board.getCurY() - 1);
                 break;
-            case "d":
-                System.out.println("Turning right");
+            case "right":
                 board.tryMove(board.getCurPiece(), board.getCurX(), board.getCurY() + 1);
                 break;
-            case "w":
-                System.out.println("rotating right");
+            case "rotate":
                 board.getCurPiece().rotateRight();
                 break;
-//            case "s":
-//                board.getCurPiece().rotateLeft();
-//                break;
-            case "l":
-                System.out.println("One line down");
-                board.oneLineDown();
+            case "drop":
+                board.dropDown();
                 break;
-            case "p":
-                System.out.println("paused");
+            case "pause":
                 board.setGamePaused();
                 break;
-            case "q":
-                System.out.println("finished");
+            case "quit":
                 board.setGameFinished();
                 break;
             default:
@@ -215,13 +224,12 @@ public class TetrisApp {
 
     private void displayGameMenu() {
         System.out.println("\nSelect from:");
-        System.out.println("\ta -> left");
-        System.out.println("\td -> right");
-        System.out.println("\tw -> rotating right");
-//        System.out.println("\ts -> rotating left");
-        System.out.println("\tl -> lower the piece");
-        System.out.println("\tp -> pause game");
-        System.out.println("\tq -> quit game");
+        System.out.println("\tleft -> left");
+        System.out.println("\tright -> right");
+        System.out.println("\trotate -> rotating right");
+        System.out.println("\tdrop -> drop the piece");
+        System.out.println("\tpause -> pause game");
+        System.out.println("\tquit -> quit game");
     }
 
     private void doViewScore() {
