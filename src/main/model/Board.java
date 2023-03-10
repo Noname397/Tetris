@@ -7,6 +7,7 @@ public class Board {
     private boolean isFallingFinished;
     private boolean isGameFinished;
     private boolean isGamePaused;
+    private int numRemoved;
     private int curX;
     private int score;
     private int curY;
@@ -43,7 +44,7 @@ public class Board {
 //            ++curX;
 //            System.out.println("Da xet x = " + curX);
         }
-        System.out.println("Pos of x is " + curX);
+        //System.out.println("Pos of x is " + curX);
         pieceDropped();
     }
 
@@ -51,11 +52,13 @@ public class Board {
     // EFFECTS: drop the shape one line down.
     public void oneLineDown() {
         if (!tryMove(curPiece,curX + 1,curY)) {
+            //System.out.println("Cannot put down line");
             pieceDropped();
         } else {
+            //System.out.println("ok");
             resetPreviousPos();
-            curX++;
-            setFallingPiece();
+//            curX++;
+//            setFallingPiece();
         }
     }
 
@@ -77,7 +80,6 @@ public class Board {
     // MODIFIES: this
     // EFFECTS: remove every full 1 lines in the board.
     public void removeFullLine() {
-        int numLineRemoved = 0;
         int row = BOARD_HEIGHT;
         int col = BOARD_WIDTH;
         int[][] newBoard = new int[row][col];
@@ -91,7 +93,7 @@ public class Board {
                 }
                 newRow--;
             } else {
-                ++numLineRemoved;
+                ++numRemoved;
             }
         }
 
@@ -107,7 +109,7 @@ public class Board {
         board = newBoard;
 
         // Update the score
-        updateScore(numLineRemoved);
+        updateScore();
     }
 
 
@@ -124,6 +126,7 @@ public class Board {
     // MODIFIES: this
     // EFFECTS: add a new random piece to the board. If can't add, game is over.
     public void addNewPiece() {
+        numRemoved = 0;
         curPiece.setRandomShape();
         curX = 0;
         curY = BOARD_WIDTH / 2;
@@ -192,6 +195,10 @@ public class Board {
         return curY;
     }
 
+    public int getNumRemoved() {
+        return numRemoved;
+    }
+
     // EFFECTS: return true if the game is over.
     public boolean isGameFinished() {
         return isGameFinished;
@@ -200,6 +207,10 @@ public class Board {
     // EFFECTS: return true if the piece has stopped falling.
     public boolean isFallingFinished() {
         return isFallingFinished;
+    }
+
+    public boolean isGamePaused() {
+        return isGamePaused;
     }
 
     // MODIFIES: this
@@ -215,14 +226,24 @@ public class Board {
     }
 
     // MODIFIES: this
-    // EFFECTS: set isGamePaused = true;
+    // EFFECTS: set isGamePaused to true
     public void setGamePaused() {
+        //System.out.println("Game is paused");
         isGamePaused = true;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set isGamePaused to false
+    public void setGameContinue() {
+        System.out.println("Game will continue");
+        isGamePaused = false;
+        //System.out.println(isGameFinished);
     }
 
     // MODIFIES: this
     // EFFECTS: set the game to be over
     public void setGameFinished() {
+//        isGamePaused = true;
         isGameFinished = true;
     }
 
@@ -239,7 +260,7 @@ public class Board {
 
     // MODIFIES: this
     // EFFECTS:  change score
-    public void updateScore(int numRemoved) {
+    public void updateScore() {
         if (numRemoved == 1) {
             score += 100;
         } else if (numRemoved == 2) {
@@ -272,14 +293,14 @@ public class Board {
         }
     }
 
-    public void printOutBoard() {
-        for (int i = 0;i < 12;++i) {
-            for (int j = 0;j < 12;++j) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
+//    public void printOutBoard() {
+//        for (int i = 0;i < 12;++i) {
+//            for (int j = 0;j < 12;++j) {
+//                System.out.print(board[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
+//    }
 
 
 }

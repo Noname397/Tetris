@@ -23,11 +23,13 @@ public class Player {
 
     // MODIFIES: this
     // EFFECTS: add a new score to the player.
-    public void newScore(int x) {
+    public void setScore(int x) {
         this.score = x;
     }
 
     public int getScore() {
         return score;
     }
+
+
 }

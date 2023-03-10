@@ -40,7 +40,7 @@ public class PlayerTest {
 
     @Test
     void testNewScore(){
-        test.newScore(100);
+        test.setScore(100);
         assertEquals(100,test.getScore());
     }
 }

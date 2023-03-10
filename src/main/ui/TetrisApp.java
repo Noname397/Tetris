@@ -143,9 +143,20 @@ public class TetrisApp {
             System.out.println("Player " + (i + 1) + "'s game starts now!!!");
             board = new Board();
             while (!board.isGameFinished()) {
-                updateBoard();
+                if (board.isGamePaused()) {
+                    continueOrStop();
+                } else {
+                    updateBoard();
+                }
             }
-            System.out.println("Score: " + "111- " + board.getScore());
+            try {
+                playersList.index(i).setScore(board.getScore());
+            } catch (OutOfBoundException e) {
+                System.out.println("Unexpected exception");
+            } catch (EmptyListException e) {
+                System.out.println("Unexpected exception");
+            }
+            System.out.println("Score: " + "- " + board.getScore());
         }
         keepGoing = false;
     }
@@ -153,17 +164,21 @@ public class TetrisApp {
     public void updateBoard() {
         if (board.isFallingFinished()) {
             board.setFallingFinished();
+            if (board.getNumRemoved() == 1) {
+                System.out.println("You've just removed 1 line!!");
+            } else if (board.getNumRemoved() > 1) {
+                System.out.println("You've just removed " + board.getNumRemoved() + " line!!");
+            }
+            System.out.println("Your score is " + board.getScore());
             board.addNewPiece();
             System.out.println("The following shape is " + board.getCurPiece().getPieceShape().name());
-            printOutShape();
-            System.out.println("pos x:" + board.getCurX());
-            System.out.println("pos y:" + board.getCurY());
-        } else {
+        } else if (!board.isGamePaused()) {
+            System.out.println("Your score is " + board.getScore());
             System.out.println("The current shape is " + board.getCurPiece().getPieceShape().name());
-            printOutShape();
-            System.out.println("The position of x (row) is " + board.getCurX());
-            System.out.println("The position of y (col) is " + board.getCurY());
         }
+        printOutShape();
+        System.out.println("pos x:" + board.getCurX());
+        System.out.println("pos y:" + board.getCurY());
         printOutBoard();
         displayGameMenu();
         input = new Scanner(System.in);
@@ -218,6 +233,26 @@ public class TetrisApp {
                 break;
             default:
                 System.out.println("Selection invalid...");
+                break;
+        }
+    }
+
+    private void continueOrStop() {
+        System.out.println("\nSelect from:");
+        System.out.println("\tcontinue -> continue");
+        System.out.println("\tquit -> quit");
+        input = new Scanner(System.in);
+        System.out.print(">>>");
+        String cmd = input.nextLine();
+        switch (cmd) {
+            case "continue":
+                board.setGameContinue();
+                break;
+            case "quit":
+                board.setGameFinished();
+                break;
+            default:
+                System.out.println("Invalid choice....");
                 break;
         }
     }

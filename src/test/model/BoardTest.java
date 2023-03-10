@@ -430,7 +430,7 @@ public class BoardTest extends Board{
         Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         int[][] boardTest = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -455,7 +455,7 @@ public class BoardTest extends Board{
         Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         int[][] boardTest = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -480,7 +480,7 @@ public class BoardTest extends Board{
         Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         int[][] boardTest = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -502,7 +502,7 @@ public class BoardTest extends Board{
         fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         boardTest = new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -526,7 +526,7 @@ public class BoardTest extends Board{
         Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         int[][] boardTest = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -547,7 +547,7 @@ public class BoardTest extends Board{
         fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         boardTest = new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -572,7 +572,7 @@ public class BoardTest extends Board{
         Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         int[][] boardTest = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -593,7 +593,7 @@ public class BoardTest extends Board{
         fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         boardTest = new int[][] {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -618,7 +618,7 @@ public class BoardTest extends Board{
         Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         int[][] boardTest = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -639,7 +639,7 @@ public class BoardTest extends Board{
         fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-        test.printOutBoard();
+        // test.printOutBoard();
         boardTest = new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -664,7 +664,7 @@ public class BoardTest extends Board{
         Tetrominoe fallingPiece = test.getCurPiece().getPieceShape();
         System.out.println(fallingPiece);
         test.dropDown();
-//        test.printOutBoard();
+//        // test.printOutBoard();
         int[][] boardTest = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -710,6 +710,7 @@ public class BoardTest extends Board{
         test.setCurX(9);
         test.oneLineDown();
         System.out.println(test.getCurX());
+        //test.printOutBoard();
         test.oneLineDown();
         System.out.println(test.getCurX());
         int[][] boardTest = {
@@ -726,7 +727,7 @@ public class BoardTest extends Board{
                 {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
         };
-        test.printOutBoard();
+        //test.printOutBoard();
 
         assertTrue(compareBoard(boardTest,test.getBoard()));
     }
@@ -765,7 +766,7 @@ public class BoardTest extends Board{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         };
-        test.printOutBoard();
+        // test.printOutBoard();
 
         assertTrue(compareBoard(boardTest,test.getBoard()));
     }
@@ -796,7 +797,7 @@ public class BoardTest extends Board{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         };
-        test.printOutBoard();
+        // test.printOutBoard();
 
         assertTrue(compareBoard(boardTest,test.getBoard()));
     }
@@ -821,7 +822,7 @@ public class BoardTest extends Board{
                 {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         };
-        // test.printOutBoard();
+        // // test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.LShape);
@@ -841,7 +842,7 @@ public class BoardTest extends Board{
                 {1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
                 {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
         };
-        //test.printOutBoard();
+        //// test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.LineShape);
@@ -861,7 +862,7 @@ public class BoardTest extends Board{
                 {1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
         };
-        //test.printOutBoard();
+        //// test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.SquareShape);
@@ -881,7 +882,7 @@ public class BoardTest extends Board{
                 {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
         };
-        //test.printOutBoard();
+        //// test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.MirroredLShape);
@@ -902,7 +903,7 @@ public class BoardTest extends Board{
                 {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
         };
-        //test.printOutBoard();
+        //// test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.LineShape);
@@ -922,7 +923,7 @@ public class BoardTest extends Board{
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
         };
-        //test.printOutBoard();
+        //// test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.LineShape);
@@ -942,7 +943,7 @@ public class BoardTest extends Board{
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
         };
-        //test.printOutBoard();
+        //// test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.TShape);
@@ -964,7 +965,7 @@ public class BoardTest extends Board{
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
         };
-        //test.printOutBoard();
+        //// test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.SquareShape);
@@ -986,7 +987,7 @@ public class BoardTest extends Board{
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
         };
-        //test.printOutBoard();
+        //// test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.MirroredLShape);
@@ -1007,7 +1008,7 @@ public class BoardTest extends Board{
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
         };
-        //test.printOutBoard();
+        //// test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
         test.addNewPiece();
         test.getCurPiece().setShape(Tetrominoe.LineShape);
@@ -1040,7 +1041,7 @@ public class BoardTest extends Board{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1},
         };
-        test.printOutBoard();
+        // test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
     }
 
@@ -1137,7 +1138,7 @@ public class BoardTest extends Board{
                 {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
                 {0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
         };
-        test.printOutBoard();
+        // test.printOutBoard();
         assertTrue(compareBoard(boardTest,test.getBoard()));
     }
 
