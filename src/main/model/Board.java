@@ -6,9 +6,9 @@ public class Board {
 
     private boolean isFallingFinished;
     private boolean isGameFinished;
-    private int numLinesRemoved;
+    private boolean isGamePaused;
     private int curX;
-    private int levelDiff;
+    private int score;
     private int curY;
     private Shape curPiece;
     private int [][] board;
@@ -18,8 +18,10 @@ public class Board {
         curPiece = new Shape();
         isFallingFinished = false;
         isGameFinished = false;
+        isGamePaused = false;
         curX = 0;
         curY = 0;
+        score = 0;
         clearBoard();
     }
 
@@ -58,17 +60,9 @@ public class Board {
     // EFFECTS: puts the falling piece into the board 2D array. Then remove all full lines and add a new piece.
     public void pieceDropped() {
         // set the falling piece to the correct pos
-        int shapeHeight = curPiece.getRow();
-        int shapeWidth = curPiece.getColumn();
-        for (int i = curX; i < curX + shapeHeight; ++i) {
-            for (int j = curY;j < curY + shapeWidth;++j) {
-                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
-            }
-        }
-
+        setCurrentPos();
         removeFullLine();
         isFallingFinished = true;
-//        addNewPiece();
     }
 
     // MODIFIES: this
@@ -102,6 +96,9 @@ public class Board {
 
         // Update the board
         board = newBoard;
+
+        // Update the score
+        updateScore(numLineRemoved);
     }
 
 
@@ -118,13 +115,16 @@ public class Board {
     // MODIFIES: this
     // EFFECTS: add a new random piece to the board. If can't add, game is over.
     public void addNewPiece() {
+        isFallingFinished = false;
         curPiece.setRandomShape();
         curX = 0;
         curY = BOARD_WIDTH / 2;
         if (!tryMove(curPiece,curX,curY)) {
             isGameFinished = true;
-//            update();
+        } else {
+            setCurrentPos();
         }
+
     }
 
     // EFFECTS: return true if a piece can be placed at row newX and col newY.
@@ -134,6 +134,7 @@ public class Board {
 
         // Check if the shape is out of bounds
         if (newX < 0 || newX + shapeHeight > BOARD_HEIGHT || newY < 0 || newY + shapeWidth > BOARD_WIDTH) {
+            setCurrentPos();
             return false;
         }
 
@@ -141,12 +142,14 @@ public class Board {
         for (int i = 0; i < shapeHeight; i++) {
             for (int j = 0; j < shapeWidth; j++) {
                 if (newPiece.getCoords()[i][j] == 1 && board[newX + i][newY + j] == 1) {
+                    setCurrentPos();
                     return false;
                 }
             }
         }
 
         // If we get here, the shape can fit on the board
+        setCurrentPos();
         return true;
     }
 
@@ -202,6 +205,49 @@ public class Board {
         this.curY = curY;
     }
 
+    // MODIFIES: this
+    // EFFECTS: set isGamePaused = true;
+    public void setGamePaused() {
+        isGamePaused = true;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set the game to be over
+    public void setGameFinished() {
+        isGameFinished = true;
+    }
+
+    // EFFECTS: return the score of the board.
+    public int getScore() {
+        return score;
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  change score
+    public void updateScore(int numRemoved) {
+        if (numRemoved == 1) {
+            score += 100;
+        } else if (numRemoved == 2) {
+            score += 300;
+        } else if (numRemoved == 3) {
+            score += 700;
+        } else if (numRemoved > 3) {
+            score += 1500;
+        }
+    }
+
+    // EFFECTS: set the falling piece to the correct pos
+    public void setCurrentPos() {
+        int shapeHeight = curPiece.getRow();
+        int shapeWidth = curPiece.getColumn();
+        for (int i = curX; i < curX + shapeHeight; ++i) {
+            for (int j = curY;j < curY + shapeWidth;++j) {
+                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
+            }
+        }
+    }
+
+
     public void printOutBoard() {
         for (int i = 0;i < 12;++i) {
             for (int j = 0;j < 12;++j) {
@@ -210,4 +256,6 @@ public class Board {
             System.out.println();
         }
     }
+
+
 }

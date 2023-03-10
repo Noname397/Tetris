@@ -1,6 +1,7 @@
 package ui;
 
 
+import model.Board;
 import model.BoardLinhTinh;
 import model.Player;
 import model.PlayersList;
@@ -126,17 +127,13 @@ public class TetrisApp {
     }
 
     private void doViewPlayer() {
-        if (playersList.length() == 0) {
-            System.out.print("There's no player in the list");
-        } else {
-            for (int i = 0; i < playersList.length(); ++i) {
-                try {
-                    System.out.println("Player " + (i + 1) + ": " + playersList.index(i).getName());
-                } catch (OutOfBoundException e) {
-                    throw new RuntimeException(e);
-                } catch (EmptyListException e) {
-                    throw new RuntimeException(e);
-                }
+        for (int i = 0; i < playersList.length(); ++i) {
+            try {
+                System.out.println("Player " + (i + 1) + ": " + playersList.index(i).getName());
+            } catch (OutOfBoundException e) {
+                System.out.println("Index out of bound");
+            } catch (EmptyListException e) {
+                System.out.print("There's no player in the list");
             }
         }
     }
@@ -144,25 +141,72 @@ public class TetrisApp {
     private void doStartGame() {
         for (int i = 0;i < playersList.length();++i) {
             System.out.println("Player " + (i + 1) + "'s game starts now!!!");
-            BoardLinhTinh b = new BoardLinhTinh();
-            b.start();
-            while (!b.isGameFinished()) {
-                displayGameMenu();
-                input = new Scanner(System.in);
-                String cmd = input.nextLine();
-                b.keyPressed(cmd);
-                b.update();
-            }
-            try {
-                playersList.index(i).newScore(b.getNumLinesRemoved());
-                System.out.println("Game over!!! Score for player " + (i + 1) + "is" + playersList.index(i).getScore());
-            } catch (OutOfBoundException e) {
-                throw new RuntimeException(e);
-            } catch (EmptyListException e) {
-                throw new RuntimeException(e);
+            Board board = new Board();
+            while (!board.isFallingFinished()) {
+                update(board);
             }
         }
         keepGoing = false;
+    }
+
+    private void update(Board board) {
+        displayGameMenu();
+        input = new Scanner(System.in);
+        String commend = input.next();
+        if (board.isGameFinished()) {
+            System.out.println("Game over!! Score: " + "1");
+        } else if (board.isFallingFinished()) {
+            board.addNewPiece();
+            board.setCurrentPos();
+            printOutBoard(board);
+        } else {
+            processGameMenu(board,commend);
+            board.setCurrentPos();
+            printOutBoard(board);
+            // processGameMenu(board);
+            // board.oneLineDown();
+        }
+    }
+
+    public void printOutBoard(Board b) {
+        int [][] board = b.getBoard();
+        int height = b.getBoardHeight();
+        int width = b.getBoardWidth();
+        for (int i = 0;i < height;++i) {
+            for (int j = 0;j < width;++j) {
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private void processGameMenu(Board board,String command) {
+        switch (command) {
+            case "a":
+                board.tryMove(board.getCurPiece(),board.getCurX(),board.getCurY() - 1);
+                break;
+            case "d":
+                board.tryMove(board.getCurPiece(), board.getCurX(), board.getCurY() + 1);
+                break;
+            case "w":
+                board.getCurPiece().rotateRight();
+                break;
+//            case "s":
+//                board.getCurPiece().rotateLeft();
+//                break;
+            case "l":
+                board.oneLineDown();
+                break;
+            case "p":
+                board.setGamePaused();
+                break;
+            case "q":
+                board.setGameFinished();
+                break;
+            default:
+                System.out.println("Selection invalid...");
+                break;
+        }
     }
 
     private void displayGameMenu() {
@@ -170,24 +214,20 @@ public class TetrisApp {
         System.out.println("\ta -> left");
         System.out.println("\td -> right");
         System.out.println("\tw -> rotating right");
-        System.out.println("\ts -> rotating left");
+//        System.out.println("\ts -> rotating left");
         System.out.println("\tl -> lower the piece");
         System.out.println("\tp -> pause game");
         System.out.println("\tq -> quit game");
     }
 
     private void doViewScore() {
-        if (playersList.length() == 0) {
-            System.out.print("There's no player in the list");
-        } else {
-            for (int i = 0; i < playersList.length(); ++i) {
-                try {
-                    System.out.println("Player " + (i + 1) + ": " + playersList.index(i).getScore());
-                } catch (OutOfBoundException e) {
-                    throw new RuntimeException(e);
-                } catch (EmptyListException e) {
-                    throw new RuntimeException(e);
-                }
+        for (int i = 0; i < playersList.length(); ++i) {
+            try {
+                System.out.println("Player " + (i + 1) + ": " + playersList.index(i).getScore());
+            } catch (OutOfBoundException e) {
+                System.out.println("Index out of bound");
+            } catch (EmptyListException e) {
+                System.out.println("There's no player in the list");
             }
         }
     }

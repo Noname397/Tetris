@@ -13,7 +13,9 @@ Some of my user stories include:
 - As a user, I want to be able to view the current high-score records for the game.
 - As a user, I want to be able to choose the difficulty for the game.
 - As a user, I want to be able to change some game settings, for example: game sound and sound effect.
-- As a player, I want to be able to pause and resume the game so that I can take a break or attend to other tasks without losing my progress. 
+- As a player, I want to be able to pause and resume the game so that I can take a break or attend to other tasks without losing my progress.
+- As a user, when I select the quit option from the application menu, I want to be reminded to save my list of players to file and have the option to do so or not.
+- As a user, when I start the application, I want to be given the option to load my list of players from the file.
 
 Source:
 TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp
