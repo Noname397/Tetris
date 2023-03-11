@@ -3,6 +3,7 @@ package model;
 import model.exceptions.EmptyListException;
 import model.exceptions.EmptyNameException;
 import model.exceptions.OutOfBoundException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,5 +43,14 @@ public class PlayerTest {
     void testNewScore(){
         test.setScore(100);
         assertEquals(100,test.getScore());
+    }
+
+    @Test
+    void testToJSon(){
+        JSONObject check = test.toJson();
+        String name = check.getString("name");
+        int score = check.getInt("score");
+        assertEquals(0,score);
+        assertEquals("A",name);
     }
 }

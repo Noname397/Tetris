@@ -3,6 +3,8 @@ package model;
 import model.exceptions.EmptyListException;
 import model.exceptions.EmptyNameException;
 import model.exceptions.OutOfBoundException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -10,8 +12,7 @@ import org.junit.jupiter.api.function.Executable;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayersListTest {
     PlayersList test;
@@ -128,4 +129,25 @@ public class PlayersListTest {
         });
     }
 
+    @Test
+    void testToJson(){
+        try {
+            test.addPlayer(new Player("A"));
+        } catch (EmptyNameException e) {
+            fail("Unexpected exception");
+        }
+        try {
+            test.addPlayer(new Player("A"));
+        } catch (EmptyNameException e) {
+            fail("Unexpected exception");
+        }
+        JSONObject check = test.toJson();
+        JSONArray jsonArray = check.getJSONArray("PlayersList");
+        for (int i = 0; i < 2;++i){
+            String name = jsonArray.getJSONObject(i).getString("name");
+            int score = jsonArray.getJSONObject(i).getInt("score");
+            assertEquals(0,score);
+            assertEquals("A",name);
+        }
+    }
 }
