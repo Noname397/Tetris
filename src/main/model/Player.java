@@ -1,8 +1,10 @@
 package model;
 
 import model.exceptions.EmptyNameException;
+import org.json.JSONObject;
+import persistence.Writable;
 
-public class Player {
+public class Player implements Writable {
     private String name;
     private int score;
 
@@ -31,5 +33,11 @@ public class Player {
         return score;
     }
 
-
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("score", score);
+        return json;
+    }
 }

@@ -2,10 +2,13 @@ package model;
 
 import model.exceptions.EmptyListException;
 import model.exceptions.OutOfBoundException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 
-public class PlayersList {
+public class PlayersList implements Writable {
     private ArrayList<Player> listOfPlayers;
 
     // EFFECTS: create a new players list
@@ -47,5 +50,23 @@ public class PlayersList {
             throw new OutOfBoundException();
         }
         return listOfPlayers.get(index);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("PlayersList", playersToJson());
+        return json;
+    }
+
+    // EFFECTS: returns players in this list of players as a JSON array
+    private JSONArray playersToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Player t : listOfPlayers) {
+            jsonArray.put(t.toJson());
+        }
+
+        return jsonArray;
     }
 }

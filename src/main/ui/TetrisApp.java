@@ -7,7 +7,11 @@ import model.PlayersList;
 import model.exceptions.EmptyListException;
 import model.exceptions.EmptyNameException;
 import model.exceptions.OutOfBoundException;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TetrisApp {
@@ -15,6 +19,9 @@ public class TetrisApp {
     boolean keepGoing;
     private PlayersList playersList;
     private Board board;
+    private static final String JSON_STORE = "./data/tetris.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the tetris application
     public TetrisApp() {
@@ -34,7 +41,7 @@ public class TetrisApp {
             commend = input.next();
             commend = commend.toLowerCase();
 
-            if (commend.equals("q")) {
+            if (commend.equals("quit")) {
                 keepGoing = false;
             } else {
                 processCommand(commend);
@@ -48,23 +55,26 @@ public class TetrisApp {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         switch (command) {
-            case "a":
+            case "add":
                 doAddPlayer();
                 break;
-            case "r":
+            case "remove":
                 doRemovePlayer();
                 break;
-            case "v":
+            case "view":
                 doViewPlayer();
                 break;
-            case "s":
+            case "start":
                 doStartGame();
                 break;
-            case "hs":
-                doViewScore();
+//            case "tutor":
+//                doTutorial();
+//                break;
+            case "save":
+                savePlayersList();
                 break;
-            case "tutor":
-                doTutorial();
+            case "load":
+                loadPlayersList();
                 break;
             default:
                 System.out.println("Selection invalid...");
@@ -80,18 +90,21 @@ public class TetrisApp {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         playersList = new PlayersList();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
-        System.out.println("\ta -> add new player");
-        System.out.println("\tr -> remove existing player");
-        System.out.println("\tv -> view the players in the game");
-        System.out.println("\ths -> view the highscores in the game");
-        System.out.println("\ts -> start game");
-        System.out.println("\ttutor -> learn the tutorial of the game");
-        System.out.println("\tq -> quit game");
+        System.out.println("\tadd -> add new player");
+        System.out.println("\tremove -> remove existing player");
+        System.out.println("\tview -> view the players and their scores in the game");
+        System.out.println("\tstart -> start game");
+     //   System.out.println("\ttutor -> learn the tutorial of the game");
+        System.out.println("\tsave -> save the list of players");
+        System.out.println("\tload -> load the list of players");
+        System.out.println("\tquit -> quit game");
     }
 
     // MODIFIES: this
@@ -130,6 +143,7 @@ public class TetrisApp {
         for (int i = 0; i < playersList.length(); ++i) {
             try {
                 System.out.println("Player " + (i + 1) + ": " + playersList.index(i).getName());
+                System.out.println("Score of player " + (i + 1) + ": " + playersList.index(i).getScore());
             } catch (OutOfBoundException e) {
                 System.out.println("Index out of bound");
             } catch (EmptyListException e) {
@@ -158,7 +172,7 @@ public class TetrisApp {
             }
             System.out.println("Score: " + "- " + board.getScore());
         }
-        keepGoing = false;
+        //keepGoing = false;
     }
 
     public void updateBoard() {
@@ -267,22 +281,34 @@ public class TetrisApp {
         System.out.println("\tquit -> quit game");
     }
 
-    private void doViewScore() {
-        for (int i = 0; i < playersList.length(); ++i) {
-            try {
-                System.out.println("Player " + (i + 1) + ": " + playersList.index(i).getScore());
-            } catch (OutOfBoundException e) {
-                System.out.println("Index out of bound");
-            } catch (EmptyListException e) {
-                System.out.println("There's no player in the list");
-            }
+    // EFFECTS: saves the playersList to file
+    private void savePlayersList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(playersList);
+            jsonWriter.close();
+            System.out.println("Saved players list to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
 
-    private void doTutorial() {
-        System.out.println("If you're new at Tetris, try to avoid doing a Hard Drop as this can swiftly drop a "
-                +  "Tetrimino to the bottom and prevent you from fixing a mistake. \nIn general, you should utilise"
-                + " the typical pace at which Tetriminos decline.");
+    // MODIFIES: this
+    // EFFECTS: loads playersList from file
+    private void loadPlayersList() {
+        try {
+            playersList = jsonReader.read();
+            System.out.println("Loaded players list from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
+
+
+//    private void doTutorial() {
+//        System.out.println("If you're new at Tetris, try to avoid doing a Hard Drop as this can swiftly drop a "
+//                +  "Tetrimino to the bottom and prevent you from fixing a mistake. \nIn general, you should utilise"
+//                + " the typical pace at which Tetriminos decline.");
+//    }
 
 }
