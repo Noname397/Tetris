@@ -1185,9 +1185,15 @@ public class BoardTest extends Board{
     void testSetNumRemoved(){
         test.setNumRemoved(2);
         assertEquals(2,test.getNumRemoved());
+        test.updateScore();
+        assertEquals(300,test.getScore());
         test.setNumRemoved(3);
+        test.updateScore();
+        assertEquals(300 + 700,test.getScore());
         assertEquals(3,test.getNumRemoved());
         test.setNumRemoved(4);
+        test.updateScore();
+        assertEquals(300 + 700 + 1500,test.getScore());
         assertEquals(4,test.getNumRemoved());
     }
 
