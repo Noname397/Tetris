@@ -1142,4 +1142,31 @@ public class BoardTest extends Board{
         assertTrue(compareBoard(boardTest,test.getBoard()));
     }
 
+    @Test
+    void testGetNumRemoved(){
+        assertEquals(0,test.getNumRemoved());
+    }
+
+    @Test
+    void testIsGamePaused(){
+        assertFalse(test.isGamePaused());
+    }
+
+    @Test
+    void testSetGameContinue(){
+        test.setGameContinue();
+        assertFalse(test.isGamePaused());
+    }
+
+    @Test
+    void testSetGameFinished(){
+        test.setGameFinished();
+        assertTrue(test.isGameFinished());
+    }
+
+    @Test
+    void testGetScore(){
+        assertEquals(0,test.getScore());
+    }
+
 }
