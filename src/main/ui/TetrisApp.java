@@ -170,9 +170,8 @@ public class TetrisApp {
             } catch (EmptyListException e) {
                 System.out.println("Unexpected exception");
             }
-            System.out.println("Score: " + "- " + board.getScore());
+            System.out.println("Score: " + board.getScore());
         }
-        //keepGoing = false;
     }
 
     public void updateBoard() {
