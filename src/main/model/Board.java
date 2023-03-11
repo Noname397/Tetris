@@ -66,13 +66,14 @@ public class Board {
     // EFFECTS: puts the falling piece into the board 2D array. Then remove all full lines and add a new piece.
     public void pieceDropped() {
         // set the falling piece to the correct pos
-        int shapeHeight = curPiece.getRow();
-        int shapeWidth = curPiece.getColumn();
-        for (int i = curX; i < curX + shapeHeight;++i) {
-            for (int j = curY; j < curY + shapeWidth;++j) {
-                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
-            }
-        }
+//        int shapeHeight = curPiece.getRow();
+//        int shapeWidth = curPiece.getColumn();
+//        for (int i = curX; i < curX + shapeHeight;++i) {
+//            for (int j = curY; j < curY + shapeWidth;++j) {
+//                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
+//            }
+//        }
+        setFallingPiece();
         removeFullLine();
         isFallingFinished = true;
     }
@@ -293,9 +294,9 @@ public class Board {
         }
     }
 
-//    public void setNumRemoved(int x) {
-//        numRemoved = x;
-//    }
+    public void setNumRemoved(int x) {
+        numRemoved = x;
+    }
 
 
 //    public void printOutBoard() {

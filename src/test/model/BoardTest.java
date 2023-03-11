@@ -1159,6 +1159,12 @@ public class BoardTest extends Board{
     }
 
     @Test
+    void testSetGamePaused(){
+        test.setGamePaused();
+        assertTrue(test.isGamePaused());
+    }
+
+    @Test
     void testSetGameFinished(){
         test.setGameFinished();
         assertTrue(test.isGameFinished());
@@ -1168,5 +1174,22 @@ public class BoardTest extends Board{
     void testGetScore(){
         assertEquals(0,test.getScore());
     }
+
+    @Test
+    void testSetFallingFinished(){
+        test.setFallingFinished();
+        assertFalse(test.isFallingFinished());
+    }
+
+    @Test
+    void testSetNumRemoved(){
+        test.setNumRemoved(2);
+        assertEquals(2,test.getNumRemoved());
+        test.setNumRemoved(3);
+        assertEquals(3,test.getNumRemoved());
+        test.setNumRemoved(4);
+        assertEquals(4,test.getNumRemoved());
+    }
+
 
 }
