@@ -1,19 +1,22 @@
 package model;
 
+// Represent the board with pixels, shape, and states of the board.
 public class Board {
     private static final int BOARD_WIDTH = 12;
     private static final int BOARD_HEIGHT = 12;
 
-    private boolean isFallingFinished;
-    private boolean isGameFinished;
-    private boolean isGamePaused;
-    private int numRemoved;
-    private int curX;
-    private int score;
-    private int curY;
-    private Shape curPiece;
-    private int [][] board;
+    private boolean isFallingFinished; // state of the game whether finished falling or not
+    private boolean isGameFinished;// state of the game whether ended or not
+    private boolean isGamePaused; // state of the game whether paused or not
+    private int numRemoved; // the number
+    private int curX; // the current row position of falling piece.
+    private int score;  // the current score of the board.
+    private int curY;  // the current column position of falling piece.
+    private Shape curPiece; // falling piece.
+    private int [][] board; // coords of board.
 
+    // EFFECTS: initiate the board with empty board coordinates,
+    // and every state of the game is false except isFallingFinished = true
     public Board() {
         board = new int[BOARD_HEIGHT][BOARD_WIDTH];
         curPiece = new Shape();
@@ -166,50 +169,52 @@ public class Board {
         return true;
     }
 
-    // EFFECTS: return the current falling shape.
+    // getter
     public Shape getCurPiece() {
         return curPiece;
     }
 
-    // EFFECTS: return the board width
+    // getter
     public int getBoardWidth() {
         return BOARD_WIDTH;
     }
 
-    // EFFECTS: return the board height
+    // getter
     public int getBoardHeight() {
         return BOARD_HEIGHT;
     }
 
-    // EFFECTS: return the board coordinates.
+    // getter
     public int[][] getBoard() {
         return board;
     }
 
-    // EFFECTS: return the current row pos of falling piece.
+    // getter
     public int getCurX() {
         return curX;
     }
 
-    // EFFECTS: return the current col pos of falling piece.
+    // getter
     public int getCurY() {
         return curY;
     }
 
+    // getter
     public int getNumRemoved() {
         return numRemoved;
     }
 
-    // EFFECTS: return true if the game is over.
+    // getter
     public boolean isGameFinished() {
         return isGameFinished;
     }
 
-    // EFFECTS: return true if the piece has stopped falling.
+    // getter
     public boolean isFallingFinished() {
         return isFallingFinished;
     }
 
+    // getter
     public boolean isGamePaused() {
         return isGamePaused;
     }
@@ -273,6 +278,8 @@ public class Board {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: add current piece to the board coordinates.
     public void setFallingPiece() {
         int shapeHeight = curPiece.getRow();
         int shapeWidth = curPiece.getColumn();
@@ -283,6 +290,8 @@ public class Board {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: reset previous position of currentPiece into all 0s.
     public void resetPreviousPos() {
         int shapeHeight = curPiece.getRow();
         int shapeWidth = curPiece.getColumn();
@@ -294,6 +303,7 @@ public class Board {
         }
     }
 
+    // getter.
     public void setNumRemoved(int x) {
         numRemoved = x;
     }

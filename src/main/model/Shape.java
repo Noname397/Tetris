@@ -2,6 +2,7 @@ package model;
 
 import java.util.Random;
 
+// Represent the coordinate of the shape, with Tetrominoe shape and no of row, and column.
 public class Shape {
     private int [][][] coordTable = {
             {{0,0,0},{0,0,0}}, // NoShape
@@ -12,12 +13,11 @@ public class Shape {
             {{1,1},{1,1},{1,1},{1,1}}, // SquareShape
             {{0,0,1},{1,1,1}}, // LShape
             {{1,0,0},{1,1,1}}, // MirroredLShape
-    };
-    private int row;
-    private int column;
-//    private int size;
-    private int[][] coords;
-    private Tetrominoe pieceShape;
+    }; // coords of all possible Tetris Shape.
+    private int row; // row size of the shape.
+    private int column; // col size of the shape.
+    private int[][] coords; // coords of the shape.
+    private Tetrominoe pieceShape; // type of shape.
 
     // EFFECTS: create a new NoShape with given coordinates.
     public Shape() {
@@ -77,13 +77,6 @@ public class Shape {
         column = row;
         row = tmp;
         coords = rotatedArr;
-
-//        for (int i = 0; i < row; i++) {
-//            for (int j = 0; j < column; j++) {
-//                System.out.print(coords[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
     }
 
     // MODIFIES: this
@@ -100,13 +93,6 @@ public class Shape {
         column = row;
         row = tmp;
         coords = rotatedArr;
-
-//        for (int i = 0; i < row; i++) {
-//            for (int j = 0; j < column; j++) {
-//                System.out.print(coords[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
     }
 
     // EFFECT: return the int coordinates of the shape

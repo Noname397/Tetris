@@ -12,8 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+// Represent a json reader.
 public class JsonReader {
-    private String source;
+    private String source; // the source link
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {

@@ -54,6 +54,11 @@ public class JsonWriterTest extends JsonTest{
                 fail("Unexpected exception");
             }
             try {
+                pl.addPlayer(new Player(""));
+            } catch (EmptyNameException e) {
+                // all good
+            }
+            try {
                 pl.addPlayer(new Player("B"));
             } catch (EmptyNameException e) {
                 fail("Unexpected exception");

@@ -14,11 +14,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+// Tetris app.
 public class TetrisApp {
-    private Scanner input;
-    boolean keepGoing;
-    private PlayersList playersList;
-    private Board board;
+    private Scanner input; // user input.
+    boolean keepGoing; // to know whether going on or not.
+    private PlayersList playersList; // list of players.
+    private Board board; // the board.
     private static final String JSON_STORE = "./data/tetris.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -139,6 +140,7 @@ public class TetrisApp {
         doViewPlayer();
     }
 
+    // EFFECTS: print out the list of players, including name and score.
     private void doViewPlayer() {
         for (int i = 0; i < playersList.length(); ++i) {
             try {
@@ -152,6 +154,8 @@ public class TetrisApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: start game for each player in the game.
     private void doStartGame() {
         for (int i = 0;i < playersList.length();++i) {
             System.out.println("Player " + (i + 1) + "'s game starts now!!!");
@@ -174,6 +178,10 @@ public class TetrisApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: update the state of the board, if the piece has stopped falling, create a new shape, if the player has
+    // removed several lines, inform the no of lines just removed, score, the current shape and row, col position of
+    // falling piece.
     public void updateBoard() {
         if (board.isFallingFinished()) {
             board.setFallingFinished();
@@ -200,6 +208,7 @@ public class TetrisApp {
         processGameMenu(cmd);
     }
 
+    // EFFECTS: print the coordinates of the board.
     public void printOutBoard() {
         int [][] b = board.getBoard();
         int height = board.getBoardHeight();
@@ -212,6 +221,7 @@ public class TetrisApp {
         }
     }
 
+    // EFFECTS: print the coordinates of the shape.
     public void printOutShape() {
         int [][] shape = board.getCurPiece().getCoords();
         int row = board.getCurPiece().getRow();
@@ -224,6 +234,7 @@ public class TetrisApp {
         }
     }
 
+    // EFFECTS: process the game menu,
     private void processGameMenu(String command) {
         switch (command) {
             case "left":
@@ -250,6 +261,8 @@ public class TetrisApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: if the player chooses continue, keep going on with the game, otherwise stop the game.
     private void continueOrStop() {
         System.out.println("\nSelect from:");
         System.out.println("\tcontinue -> continue");
@@ -270,6 +283,7 @@ public class TetrisApp {
         }
     }
 
+    // EFFFECTS: display the game menu options.
     private void displayGameMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tleft -> left");

@@ -7,10 +7,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+// represent a json writer.
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
-    private String destination;
+    private String destination; // the source link.
 
     // EFFECTS: constructs writer to write to destination file
     public JsonWriter(String destination) {
@@ -25,9 +26,9 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
-    public void write(PlayersList wr) {
-        JSONObject json = wr.toJson();
+    // EFFECTS: writes JSON representation of playerslist to file
+    public void write(PlayersList pl) {
+        JSONObject json = pl.toJson();
         saveToFile(json.toString(TAB));
     }
 

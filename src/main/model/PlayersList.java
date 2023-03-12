@@ -8,8 +8,9 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 
+// represent the list of players.
 public class PlayersList implements Writable {
-    private ArrayList<Player> listOfPlayers;
+    private ArrayList<Player> listOfPlayers; // list of players.
 
     // EFFECTS: create a new players list
     public PlayersList() {
@@ -35,7 +36,7 @@ public class PlayersList implements Writable {
         this.listOfPlayers.remove(index);
     }
 
-    // EFFECTS: return the size of the list.
+    // getter
     public int length() {
         return listOfPlayers.size();
     }
@@ -52,6 +53,7 @@ public class PlayersList implements Writable {
         return listOfPlayers.get(index);
     }
 
+    // convert the list of players to JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

@@ -4,9 +4,10 @@ import model.exceptions.EmptyNameException;
 import org.json.JSONObject;
 import persistence.Writable;
 
+// Representing a player with name and score.
 public class Player implements Writable {
-    private String name;
-    private int score;
+    private String name; // name of the player
+    private int score; // score of the player
 
     // EFFECTS: construct a player with name and 0 score, if name is empty, throw
     // EmptyNameException.
@@ -19,6 +20,7 @@ public class Player implements Writable {
         }
     }
 
+    // getter
     public String getName() {
         return name;
     }
@@ -29,10 +31,12 @@ public class Player implements Writable {
         this.score = x;
     }
 
+    // getter
     public int getScore() {
         return score;
     }
 
+    // EFFECTS: returns player as a JSON array
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
