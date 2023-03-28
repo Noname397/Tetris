@@ -68,9 +68,6 @@ public class TetrisApp {
             case "start":
                 doStartGame();
                 break;
-//            case "tutor":
-//                doTutorial();
-//                break;
             case "save":
                 savePlayersList();
                 break;
