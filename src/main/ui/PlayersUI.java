@@ -70,7 +70,7 @@ public class PlayersUI {
     private void setStartGameBtn() {
         startGameBtn = new JButton("Start game");
         startGameBtn.setBounds(350,50,30,30);
-        startGameBtn.setBackground(Color.ORANGE);
+        //startGameBtn.setBackground(Color.ORANGE);
         btnPanel.add(startGameBtn);
         startGameBtn.addActionListener(new ActionListener() {
             @Override
@@ -88,7 +88,7 @@ public class PlayersUI {
     private void setAddButton() {
         addBtn = new JButton("Add");
         addBtn.setBounds(50,50,30,30);
-        addBtn.setBackground(Color.YELLOW);
+        //addBtn.setBackground(Color.YELLOW);
         btnPanel.add(addBtn);
         addBtn.addActionListener(new ActionListener() {
             @Override
@@ -108,7 +108,7 @@ public class PlayersUI {
     private void setRemoveButton() {
         removeBtn = new JButton("Remove");
         removeBtn.setBounds(100,50,30,30);
-        removeBtn.setBackground(Color.blue);
+        //removeBtn.setBackground(Color.blue);
         btnPanel.add(removeBtn);
         removeBtn.addActionListener(new ActionListener() {
             @Override
@@ -131,7 +131,7 @@ public class PlayersUI {
     private void setSaveButton() {
         saveBtn = new JButton("Save");
         saveBtn.setBounds(150,50,30,30);
-        saveBtn.setBackground(Color.GREEN);
+        //saveBtn.setBackground(Color.GREEN);
         btnPanel.add(saveBtn);
 
         saveBtn.addActionListener(new ActionListener() {
@@ -152,7 +152,7 @@ public class PlayersUI {
     private void setLoadButton() {
         loadBtn = new JButton("Load");
         loadBtn.setBounds(250,50,50,50);
-        loadBtn.setBackground(Color.PINK);
+        //loadBtn.setBackground(Color.PINK);
         btnPanel.add(loadBtn);
         loadBtn.addActionListener(new ActionListener() {
             @Override

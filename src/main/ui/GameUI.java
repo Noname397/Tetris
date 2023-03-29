@@ -10,16 +10,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameUI extends JFrame implements ActionListener {
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    private static final int WIDTH = 600;
+    private static final int HEIGHT = 560;
     private static final int CONTROL_PANEL_WIDTH = 200;
     private static final int BOARD_WIDTH = WIDTH - CONTROL_PANEL_WIDTH;
 
     private JPanel boardPanel;
+    private Board board;
     private JPanel controlPanel;
     private JLabel scoreLabel;
     private JButton pauseButton;
     private PauseDialog pauseDialog;
+
+    private static final int PERIOD_INTERVAL = 300;
+    private Timer timer;
+
 
     public GameUI() {
         setTitle("My Game");
@@ -27,10 +32,10 @@ public class GameUI extends JFrame implements ActionListener {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         // create board panel
-//        boardPanel = new JPanel();
+//        boardPanel = new GameArea(BOARD_WIDTH,HEIGHT);
 //        boardPanel.setPreferredSize(new Dimension(BOARD_WIDTH, HEIGHT));
 //        boardPanel.setBackground(Color.WHITE);
-        setBoardPanel();
+        setGameArea(new Board());
 
         // create control panel
         controlPanel = new JPanel();
@@ -59,6 +64,15 @@ public class GameUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    public void setGameArea(Board board) {
+        boardPanel = new GameArea(BOARD_WIDTH,HEIGHT, board);
+        boardPanel.setPreferredSize(new Dimension(BOARD_WIDTH, HEIGHT));
+        boardPanel.setBackground(Color.WHITE);
+
+    }
+
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == pauseButton) {
@@ -67,13 +81,6 @@ public class GameUI extends JFrame implements ActionListener {
         }
     }
 
-    private void setBoardPanel() {
-        //boardPanel = new JPanel();
-        boardPanel = new BoardPanel();
-        boardPanel.setPreferredSize(new Dimension(BOARD_WIDTH, HEIGHT));
-        boardPanel.setBackground(Color.WHITE);
-
-    }
 
 
     private class PauseDialog extends JDialog implements ActionListener {
@@ -116,5 +123,9 @@ public class GameUI extends JFrame implements ActionListener {
                 dispose();
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new GameUI();
     }
 }

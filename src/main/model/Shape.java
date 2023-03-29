@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.*;
 import java.util.Random;
 
 // Represent the coordinate of the shape, with Tetrominoe shape and no of row, and column.
@@ -14,12 +15,23 @@ public class Shape {
             {{0,0,1},{1,1,1}}, // LShape
             {{1,0,0},{1,1,1}}, // MirroredLShape
     }; // coords of all possible Tetris Shape.
+    private Color[] colors = {
+            new Color(255, 255, 255), // NoShape
+            new Color(204, 102, 102), // ZShape
+            new Color(102, 204, 102), // SShape
+            new Color(102, 102, 204), // LineShape
+            new Color(204, 204, 102), // TShape
+            new Color(204, 102, 204), // SquareShape
+            new Color(102, 204, 204), // LShape
+            new Color(218, 170, 0) // MirroredLShape
+    };
     private int row; // row size of the shape.
     private int column; // col size of the shape.
     private int[][] coords; // coords of the shape.
     private Tetrominoe pieceShape; // type of shape.
+    private Color color; // color of the shape.
 
-    // EFFECTS: create a new NoShape with given coordinates.
+    // EFFECTS: create a new NoShape with given coordinates and white color.
     public Shape() {
         Tetrominoe[] values = Tetrominoe.values();
         setShape(values[0]);
@@ -28,7 +40,6 @@ public class Shape {
     // MODIFIES: this
     // EFFECTS: create shape
     public void setShape(Tetrominoe shape) {
-        int pos = shape.ordinal();
         switch (shape) {
             case LineShape:
                 row = 1;
@@ -51,6 +62,7 @@ public class Shape {
         }
 
         pieceShape = shape;
+        color = colors[shape.ordinal()];
 
     }
 
@@ -113,5 +125,10 @@ public class Shape {
     // EFFECTS: return the number of columns in shape.
     public int getColumn() {
         return column;
+    }
+
+    // getter
+    public Color getColor() {
+        return color;
     }
 }

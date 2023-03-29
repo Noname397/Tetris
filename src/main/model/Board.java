@@ -1,9 +1,11 @@
 package model;
 
+import java.awt.*;
+
 // Represent the board with pixels, shape, and states of the board.
 public class Board {
-    private static final int BOARD_WIDTH = 12;
-    private static final int BOARD_HEIGHT = 12;
+    private static final int BOARD_WIDTH = 10;
+    private static final int BOARD_HEIGHT = 14;
     private boolean isFallingFinished; // state of the game whether finished falling or not
     private boolean isGameFinished;// state of the game whether ended or not
     private boolean isGamePaused; // state of the game whether paused or not
@@ -13,11 +15,13 @@ public class Board {
     private int curY;  // the current column position of falling piece.
     private Shape curPiece; // falling piece.
     private int [][] board; // coords of board.
+    private Color [][] backGroundBoard; // color of the board.
 
     // EFFECTS: initiate the board with empty board coordinates,
     // and every state of the game is false except isFallingFinished = true
     public Board() {
         board = new int[BOARD_HEIGHT][BOARD_WIDTH];
+        backGroundBoard = new Color[BOARD_HEIGHT][BOARD_WIDTH];
         curPiece = new Shape();
         isFallingFinished = true;
         isGameFinished = false;
@@ -34,6 +38,7 @@ public class Board {
         for (int i = 0;i < BOARD_HEIGHT;++i) {
             for (int j = 0;j < BOARD_WIDTH;++j) {
                 board[i][j] = 0;
+                backGroundBoard[i][j] = Color.WHITE;
             }
         }
     }
@@ -43,10 +48,7 @@ public class Board {
     // EFFECTS: drop the shape to the furthest position down as possible.
     public void dropDown() {
         while (tryMove(curPiece, curX + 1, curY)) {
-//            ++curX;
-//            System.out.println("Da xet x = " + curX);
         }
-        //System.out.println("Pos of x is " + curX);
         pieceDropped();
     }
 
@@ -54,28 +56,14 @@ public class Board {
     // EFFECTS: drop the shape one line down.
     public void oneLineDown() {
         if (!tryMove(curPiece,curX + 1,curY)) {
-            //System.out.println("Cannot put down line");
             pieceDropped();
         }
-//        else {
-//            //System.out.println("ok");
-//            resetPreviousPos();
-////            curX++;
-////            setFallingPiece();
-//        }
     }
 
     // MODIFIES: this
     // EFFECTS: puts the falling piece into the board 2D array. Then remove all full lines and add a new piece.
     public void pieceDropped() {
         // set the falling piece to the correct pos
-//        int shapeHeight = curPiece.getRow();
-//        int shapeWidth = curPiece.getColumn();
-//        for (int i = curX; i < curX + shapeHeight;++i) {
-//            for (int j = curY; j < curY + shapeWidth;++j) {
-//                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
-//            }
-//        }
         setFallingPiece();
         removeFullLine();
         isFallingFinished = true;
@@ -87,6 +75,7 @@ public class Board {
         int row = BOARD_HEIGHT;
         int col = BOARD_WIDTH;
         int[][] newBoard = new int[row][col];
+        Color [][] newBackgroundBoard = new Color[row][col];
         int newRow = row - 1;
 
         for (int i = row - 1; i >= 0; i--) {
@@ -94,6 +83,7 @@ public class Board {
                 // Copy the current row to the new board
                 for (int j = 0; j < col; j++) {
                     newBoard[newRow][j] = board[i][j];
+                    newBackgroundBoard[newRow][j] = backGroundBoard[i][j];
                 }
                 newRow--;
             } else {
@@ -105,15 +95,13 @@ public class Board {
         while (newRow >= 0) {
             for (int j = 0; j < col; j++) {
                 newBoard[newRow][j] = 0;
+                newBackgroundBoard[newRow][j] = Color.WHITE;
             }
             newRow--;
         }
-
-        // Update the board
-        board = newBoard;
-
-        // Update the score
-        updateScore();
+        board = newBoard; // Update the board
+        backGroundBoard = newBackgroundBoard; // Update the background board;
+        updateScore();// Update the score
     }
 
 
@@ -134,14 +122,9 @@ public class Board {
         curPiece.setRandomShape();
         curX = 0;
         curY = BOARD_WIDTH / 2;
-//        System.out.println("The following state is " + curPiece.getPieceShape().name());
-//        System.out.println("pos x:" + curX);
-//        System.out.println("pos y:" + curY);
         if (!tryMove(curPiece,curX,curY)) {
             isGameFinished = true;
         }
-        //resetPreviousPos();
-        //setFallingPiece();
     }
 
     // EFFECTS: return true if a piece can be placed at row newX and col newY.
@@ -234,22 +217,18 @@ public class Board {
     // MODIFIES: this
     // EFFECTS: set isGamePaused to true
     public void setGamePaused() {
-        //System.out.println("Game is paused");
         isGamePaused = true;
     }
 
     // MODIFIES: this
     // EFFECTS: set isGamePaused to false
     public void setGameContinue() {
-        System.out.println("Game will continue");
         isGamePaused = false;
-        //System.out.println(isGameFinished);
     }
 
     // MODIFIES: this
     // EFFECTS: set the game to be over
     public void setGameFinished() {
-//        isGamePaused = true;
         isGameFinished = true;
     }
 
@@ -286,6 +265,9 @@ public class Board {
         for (int i = curX; i < curX + shapeHeight;++i) {
             for (int j = curY; j < curY + shapeWidth;++j) {
                 board[i][j] += curPiece.getCoords()[i - curX][j - curY];
+                if (backGroundBoard[i][j] == Color.WHITE && curPiece.getCoords()[i - curX][j - curY] == 1) {
+                    backGroundBoard[i][j] = curPiece.getColor();
+                }
             }
         }
     }
@@ -307,16 +289,5 @@ public class Board {
     public void setNumRemoved(int x) {
         numRemoved = x;
     }
-
-
-    //    public void printOutBoard() {
-//        for (int i = 0;i < 12;++i) {
-//            for (int j = 0;j < 12;++j) {
-//                System.out.print(board[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//    }
-
 
 }

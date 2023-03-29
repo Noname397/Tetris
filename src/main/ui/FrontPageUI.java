@@ -31,7 +31,7 @@ public class FrontPageUI {
     private void setStartButton() {
         startBtn = new JButton("Start");
         //startBtn.setBounds(50,50,100,100);
-        startBtn.setBackground(Color.YELLOW);
+        //startBtn.setBackground(Color.YELLOW);
         btnPanel.add(startBtn); //frame.getContentPane().add(startButton);
         startBtn.addActionListener(new ActionListener() {
             @Override
@@ -45,7 +45,7 @@ public class FrontPageUI {
     private void setQuitButton() {
         quitBtn = new JButton("Quit");
         //quitBtn.setBounds(250,50,100,100);
-        quitBtn.setBackground(Color.blue);
+        //quitBtn.setBackground(Color.blue);
         btnPanel.add(quitBtn);//frame.getContentPane().add(quitBtn);
         quitBtn.addActionListener(new ActionListener() {
             @Override
