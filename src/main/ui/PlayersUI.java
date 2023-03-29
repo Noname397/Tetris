@@ -62,8 +62,27 @@ public class PlayersUI {
         setRemoveButton();
         setSaveButton();
         setLoadButton();
+        setStartGameBtn();
         frame.add(btnPanel, BorderLayout.SOUTH);
 
+    }
+
+    private void setStartGameBtn() {
+        startGameBtn = new JButton("Start game");
+        startGameBtn.setBounds(350,50,30,30);
+        startGameBtn.setBackground(Color.ORANGE);
+        btnPanel.add(startGameBtn);
+        startGameBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // start game;
+                int selectedIndex = list.getSelectedIndex();
+                if (selectedIndex != -1) {
+                    // new game;
+                    new GameUI();
+                }
+            }
+        });
     }
 
     private void setAddButton() {

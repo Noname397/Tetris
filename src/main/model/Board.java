@@ -4,7 +4,6 @@ package model;
 public class Board {
     private static final int BOARD_WIDTH = 12;
     private static final int BOARD_HEIGHT = 12;
-
     private boolean isFallingFinished; // state of the game whether finished falling or not
     private boolean isGameFinished;// state of the game whether ended or not
     private boolean isGamePaused; // state of the game whether paused or not
@@ -57,12 +56,13 @@ public class Board {
         if (!tryMove(curPiece,curX + 1,curY)) {
             //System.out.println("Cannot put down line");
             pieceDropped();
-        } else {
-            //System.out.println("ok");
-            resetPreviousPos();
-//            curX++;
-//            setFallingPiece();
         }
+//        else {
+//            //System.out.println("ok");
+//            resetPreviousPos();
+////            curX++;
+////            setFallingPiece();
+//        }
     }
 
     // MODIFIES: this
@@ -290,18 +290,18 @@ public class Board {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: reset previous position of currentPiece into all 0s.
-    public void resetPreviousPos() {
-        int shapeHeight = curPiece.getRow();
-        int shapeWidth = curPiece.getColumn();
-        for (int i = curX; i < curX + shapeHeight;++i) {
-            for (int j = curY; j < curY + shapeWidth;++j) {
-                //board[i][j] -= curPiece.getCoords()[i - curX][j - curY];
-                board[i][j] = 0;
-            }
-        }
-    }
+//    // MODIFIES: this
+//    // EFFECTS: reset previous position of currentPiece into all 0s.
+//    public void resetPreviousPos() {
+//        int shapeHeight = curPiece.getRow();
+//        int shapeWidth = curPiece.getColumn();
+//        for (int i = curX; i < curX + shapeHeight;++i) {
+//            for (int j = curY; j < curY + shapeWidth;++j) {
+//                //board[i][j] -= curPiece.getCoords()[i - curX][j - curY];
+//                board[i][j] = 0;
+//            }
+//        }
+//    }
 
     // getter.
     public void setNumRemoved(int x) {
@@ -309,7 +309,7 @@ public class Board {
     }
 
 
-//    public void printOutBoard() {
+    //    public void printOutBoard() {
 //        for (int i = 0;i < 12;++i) {
 //            for (int j = 0;j < 12;++j) {
 //                System.out.print(board[i][j] + " ");

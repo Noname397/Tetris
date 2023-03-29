@@ -15,7 +15,7 @@ public class FrontPageUI {
 //        JFrame frame = new JFrame("Tetris");
         frame = new JFrame("Tetris");
 //        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setSize(500, 600);
+        frame.setSize(800, 600);
         frame.setLocationRelativeTo(null); // center the JFrame on the screen
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
