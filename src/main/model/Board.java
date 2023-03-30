@@ -71,6 +71,7 @@ public class Board {
 
     // MODIFIES: this
     // EFFECTS: remove every full 1 lines in the board.
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void removeFullLine() {
         int row = BOARD_HEIGHT;
         int col = BOARD_WIDTH;
