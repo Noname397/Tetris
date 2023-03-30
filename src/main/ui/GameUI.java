@@ -22,8 +22,6 @@ public class GameUI extends JFrame {
     private static JLabel stateLabel;
     private JButton pauseButton;
 
-
-
     public GameUI(PlayersList pl, int index) {
         setTitle("Tetris");
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -34,20 +32,22 @@ public class GameUI extends JFrame {
         playersList = pl;
         playerIndex = index;
 
-        // create control panel
-        controlPanel = new JPanel();
-        controlPanel.setPreferredSize(new Dimension(CONTROL_PANEL_WIDTH, HEIGHT));
-        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.PAGE_AXIS));
+//        // create control panel
+//        controlPanel = new JPanel();
+//        controlPanel.setPreferredSize(new Dimension(CONTROL_PANEL_WIDTH, HEIGHT));
+//        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.PAGE_AXIS));
+//
+//        // create score label
+//        scoreLabel = new JLabel("Score: 0");
+//        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        controlPanel.add(scoreLabel);
+//
+//        // add board panel and control panel to frame
+//        getContentPane().setLayout(new BorderLayout());
+//        getContentPane().add(boardPanel, BorderLayout.WEST);
+//        getContentPane().add(controlPanel, BorderLayout.EAST);
 
-        // create score label
-        scoreLabel = new JLabel("Score: 0");
-        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        controlPanel.add(scoreLabel);
-
-        // add board panel and control panel to frame
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(boardPanel, BorderLayout.WEST);
-        getContentPane().add(controlPanel, BorderLayout.EAST);
+        createControlPanel();
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -79,4 +79,20 @@ public class GameUI extends JFrame {
         }
     }
 
+    public void createControlPanel() {
+        // create control panel
+        controlPanel = new JPanel();
+        controlPanel.setPreferredSize(new Dimension(CONTROL_PANEL_WIDTH, HEIGHT));
+        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.PAGE_AXIS));
+
+        // create score label
+        scoreLabel = new JLabel("Score: 0");
+        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        controlPanel.add(scoreLabel);
+
+        // add board panel and control panel to frame
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(boardPanel, BorderLayout.WEST);
+        getContentPane().add(controlPanel, BorderLayout.EAST);
+    }
 }

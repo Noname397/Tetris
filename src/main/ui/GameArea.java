@@ -110,6 +110,7 @@ public class GameArea extends JPanel {
     }
 
     private class TAdapter extends KeyAdapter {
+        @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
