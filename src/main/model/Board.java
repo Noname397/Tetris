@@ -5,7 +5,7 @@ import java.awt.*;
 // Represent the board with pixels, shape, and states of the board.
 public class Board {
     private static final int BOARD_WIDTH = 10;
-    private static final int BOARD_HEIGHT = 14;
+    private static final int BOARD_HEIGHT = 18;
     private boolean isFallingFinished; // state of the game whether finished falling or not
     private boolean isGameFinished;// state of the game whether ended or not
     private boolean isGamePaused; // state of the game whether paused or not
@@ -272,18 +272,9 @@ public class Board {
         }
     }
 
-//    // MODIFIES: this
-//    // EFFECTS: reset previous position of currentPiece into all 0s.
-//    public void resetPreviousPos() {
-//        int shapeHeight = curPiece.getRow();
-//        int shapeWidth = curPiece.getColumn();
-//        for (int i = curX; i < curX + shapeHeight;++i) {
-//            for (int j = curY; j < curY + shapeWidth;++j) {
-//                //board[i][j] -= curPiece.getCoords()[i - curX][j - curY];
-//                board[i][j] = 0;
-//            }
-//        }
-//    }
+    public Color[][] getBackGroundBoard() {
+        return backGroundBoard;
+    }
 
     // getter.
     public void setNumRemoved(int x) {

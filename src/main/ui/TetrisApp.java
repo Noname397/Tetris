@@ -243,6 +243,9 @@ public class TetrisApp {
             case "rotate":
                 board.getCurPiece().rotateRight();
                 break;
+            case "one line down":
+                board.oneLineDown();
+                break;
             case "drop":
                 board.dropDown();
                 break;
@@ -287,6 +290,7 @@ public class TetrisApp {
         System.out.println("\tright -> right");
         System.out.println("\trotate -> rotating right");
         System.out.println("\tdrop -> drop the piece");
+        System.out.println("\tone line down");
         System.out.println("\tpause -> pause game");
         System.out.println("\tquit -> quit game");
     }

@@ -4,15 +4,12 @@ import model.Board;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 public class GameUI extends JFrame implements ActionListener {
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 560;
-    private static final int CONTROL_PANEL_WIDTH = 200;
+    private static final int WIDTH = 450;
+    private static final int HEIGHT = 540;
+    private static final int CONTROL_PANEL_WIDTH = 150;
     private static final int BOARD_WIDTH = WIDTH - CONTROL_PANEL_WIDTH;
 
     private JPanel boardPanel;
@@ -35,7 +32,8 @@ public class GameUI extends JFrame implements ActionListener {
 //        boardPanel = new GameArea(BOARD_WIDTH,HEIGHT);
 //        boardPanel.setPreferredSize(new Dimension(BOARD_WIDTH, HEIGHT));
 //        boardPanel.setBackground(Color.WHITE);
-        setGameArea(new Board());
+        board = new Board();
+        setGameArea(board);
 
         // create control panel
         controlPanel = new JPanel();
@@ -62,15 +60,14 @@ public class GameUI extends JFrame implements ActionListener {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+
     }
 
     public void setGameArea(Board board) {
         boardPanel = new GameArea(BOARD_WIDTH,HEIGHT, board);
         boardPanel.setPreferredSize(new Dimension(BOARD_WIDTH, HEIGHT));
         boardPanel.setBackground(Color.WHITE);
-
     }
-
 
 
     @Override
