@@ -178,6 +178,7 @@ public class PlayersUI {
         }
     }
 
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void setScoresButton() {
         scoreBtn = new JButton("View score");
         scoreBtn.setBounds(250,50,50,50);

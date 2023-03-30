@@ -243,9 +243,6 @@ public class TetrisApp {
             case "rotate":
                 board.getCurPiece().rotateRight();
                 break;
-            case "one line down":
-                board.oneLineDown();
-                break;
             case "drop":
                 board.dropDown();
                 break;
