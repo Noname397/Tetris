@@ -178,11 +178,10 @@ public class PlayersUI {
         }
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void setScoresButton() {
         scoreBtn = new JButton("View score");
-        scoreBtn.setBounds(250,50,50,50);
-        //loadBtn.setBackground(Color.PINK);
+//        scoreBtn.setBounds(250,50,50,50);
+//        //loadBtn.setBackground(Color.PINK);
         btnPanel.add(scoreBtn);
         scoreBtn.addActionListener(new ActionListener() {
             @Override
@@ -196,15 +195,7 @@ public class PlayersUI {
                 scoreBoard.setLayout(new BorderLayout());
                 scoreBoard.add(new JScrollPane(scoreList), BorderLayout.CENTER);
 
-
-                for (int i = 0;i < playersList.length();++i) {
-                    try {
-                        int score = playersList.index(i).getScore();
-                        model.addElement("Player " + (i + 1) + ": " + String.valueOf(score));
-                    } catch (Exception exception) {
-                        // all good.
-                    }
-                }
+                addPlayersToModel();
 
                 scoreBoard.addWindowListener(new WindowAdapter() {
                     public void windowClosing(WindowEvent e) {

@@ -110,7 +110,6 @@ public class GameArea extends JPanel {
     }
 
     private class TAdapter extends KeyAdapter {
-        @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
@@ -118,12 +117,6 @@ public class GameArea extends JPanel {
                     break;
                 case KeyEvent.VK_RIGHT:
                     board.tryMove(board.getCurPiece(), board.getCurX(), board.getCurY() + 1);
-                    break;
-                case KeyEvent.VK_DOWN:
-                    board.getCurPiece().rotateRight();
-                    if (!board.tryMove(board.getCurPiece(),board.getCurX(),board.getCurY())) {
-                        board.getCurPiece().rotateLeft();
-                    }
                     break;
                 case KeyEvent.VK_UP:
                     board.getCurPiece().rotateLeft();
@@ -135,16 +128,23 @@ public class GameArea extends JPanel {
                     board.dropDown();
                     break;
                 case KeyEvent.VK_P:
-                    if (timer.isRunning()) {
-                        timer.stop();
-//                        GameUI.updateGameState("Game paused");
-                    } else {
-                        timer.start();
-                    //    GameUI.updateGameState("Game on");
-                    }
+//                    if ((timer.isRunning())) {
+//                        timer.stop();
+//                    } else {
+//                        timer.start();
+//                    }
+                    changeTimer();
                     break;
             }
             repaint();
+        }
+    }
+
+    public void changeTimer() {
+        if ((timer.isRunning())) {
+            timer.stop();
+        } else {
+            timer.start();
         }
     }
 
