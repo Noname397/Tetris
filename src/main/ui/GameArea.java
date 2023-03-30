@@ -20,8 +20,8 @@ public class GameArea extends JPanel {
         this.gameUI = gameUI;
         Rectangle r = new Rectangle(width,height);
         setBounds(r);
-        System.out.println(getHeight());
-        System.out.println(getWidth());
+//        System.out.println(getHeight());
+//        System.out.println(getWidth());
         setPreferredSize(new Dimension(width,height));
         setBackground(Color.WHITE);
         setFocusable(true);
@@ -32,7 +32,7 @@ public class GameArea extends JPanel {
         gridCol = this.board.getBoardWidth();
         gridCellSize = getWidth() / gridCol;
 
-        System.out.println(gridCellSize);
+//        System.out.println(gridCellSize);
 
         timer = new Timer(800, new ActionListener() {
             @Override
@@ -77,7 +77,7 @@ public class GameArea extends JPanel {
         if (board.isGameFinished()) {
             timer.stop();
             int finalScore = board.getScore();
-            System.out.println("Score: " + finalScore);
+           // System.out.println("Score: " + finalScore);
             gameUI.transferFinalScoreToPlayer(finalScore);
         }
         if (board.isGamePaused()) {
@@ -128,11 +128,6 @@ public class GameArea extends JPanel {
                     board.dropDown();
                     break;
                 case KeyEvent.VK_P:
-//                    if ((timer.isRunning())) {
-//                        timer.stop();
-//                    } else {
-//                        timer.start();
-//                    }
                     changeTimer();
                     break;
             }

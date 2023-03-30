@@ -66,7 +66,6 @@ public class PlayersUI {
     private void setStartGameBtn() {
         startGameBtn = new JButton("Start game");
         startGameBtn.setBounds(350,50,30,30);
-        //startGameBtn.setBackground(Color.ORANGE);
         btnPanel.add(startGameBtn);
         startGameBtn.addActionListener(new ActionListener() {
             @Override
@@ -93,9 +92,9 @@ public class PlayersUI {
                 try {
                     playersList.addPlayer(new Player(input));
                     model.addElement(input);
-                    System.out.println(input + "'s added to the list");
+                    //System.out.println(input + "'s added to the list");
                 } catch (EmptyNameException ex) {
-                    System.out.println("Name must be not empty");
+                    //System.out.println("Name must be not empty");
                     JOptionPane.showMessageDialog(frame, "Please enter some text.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -105,7 +104,6 @@ public class PlayersUI {
     private void setRemoveButton() {
         removeBtn = new JButton("Remove");
         removeBtn.setBounds(100,50,30,30);
-        //removeBtn.setBackground(Color.blue);
         btnPanel.add(removeBtn);
         removeBtn.addActionListener(new ActionListener() {
             @Override
@@ -115,10 +113,10 @@ public class PlayersUI {
                     playersList.removePlayer(selectedIndex);
                     model.remove(selectedIndex);
                 } catch (OutOfBoundException ex) {
-                    System.out.println("Out of bound");
+                    //System.out.println("Out of bound");
                     JOptionPane.showMessageDialog(frame, "Out of bound", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (EmptyListException ex) {
-                    System.out.println("Empty list");
+                    //System.out.println("Empty list");
                     JOptionPane.showMessageDialog(frame, "Empty list", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -138,9 +136,9 @@ public class PlayersUI {
                     jsonWriter.open();
                     jsonWriter.write(playersList);
                     jsonWriter.close();
-                    System.out.println("Saved players list to " + JSON_STORE);
+                    // System.out.println("Saved players list to " + JSON_STORE);
                 } catch (FileNotFoundException exception) {
-                    System.out.println("Unable to write to file: " + JSON_STORE);
+                    // System.out.println("Unable to write to file: " + JSON_STORE);
                 }
             }
         });
@@ -156,10 +154,10 @@ public class PlayersUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     playersList = jsonReader.read();
-                    System.out.println("Loaded players list from " + JSON_STORE);
+                    // System.out.println("Loaded players list from " + JSON_STORE);
                     addPlayersToModel();
                 } catch (IOException exception) {
-                    System.out.println("Unable to read from file: " + JSON_STORE);
+                    // System.out.println("Unable to read from file: " + JSON_STORE);
                 }
             }
         });
@@ -171,9 +169,9 @@ public class PlayersUI {
             try {
                 model.addElement(playersList.index(i).getName());
             } catch (OutOfBoundException ex) {
-                System.out.println("Out of bound");
+                // System.out.println("Out of bound");
             } catch (EmptyListException ex) {
-                System.out.println("Empty list");
+                // System.out.println("Empty list");
             }
         }
     }
