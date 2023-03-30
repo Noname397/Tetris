@@ -18,22 +18,21 @@ public class GameArea extends JPanel {
 
     public GameArea(int width,int height,Board board, GameUI gameUI) {
         this.gameUI = gameUI;
-
         Rectangle r = new Rectangle(width,height);
         setBounds(r);
         System.out.println(getHeight());
         System.out.println(getWidth());
-        setBackground(Color.WHITE);
         setPreferredSize(new Dimension(width,height));
+        setBackground(Color.WHITE);
         setFocusable(true);
         addKeyListener(new TAdapter());
-
-
 
         this.board = board;
         gridRow = this.board.getBoardHeight();
         gridCol = this.board.getBoardWidth();
         gridCellSize = getWidth() / gridCol;
+
+        System.out.println(gridCellSize);
 
         timer = new Timer(800, new ActionListener() {
             @Override
@@ -114,39 +113,38 @@ public class GameArea extends JPanel {
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    System.out.println("Left");
                     board.tryMove(board.getCurPiece(),board.getCurX(),board.getCurY() - 1);
-                    repaint();
                     break;
                 case KeyEvent.VK_RIGHT:
-                    System.out.println("right");
                     board.tryMove(board.getCurPiece(), board.getCurX(), board.getCurY() + 1);
-                    repaint();
                     break;
                 case KeyEvent.VK_DOWN:
-                    System.out.println("down");
                     board.getCurPiece().rotateRight();
                     if (!board.tryMove(board.getCurPiece(),board.getCurX(),board.getCurY())) {
                         board.getCurPiece().rotateLeft();
                     }
-                    repaint();
                     break;
                 case KeyEvent.VK_UP:
-                    System.out.println("up");
                     board.getCurPiece().rotateLeft();
                     if (!board.tryMove(board.getCurPiece(),board.getCurX(),board.getCurY())) {
                         board.getCurPiece().rotateRight();
                     }
-                    repaint();
                     break;
                 case KeyEvent.VK_SPACE:
-                    System.out.println("space");
                     board.dropDown();
-                    repaint();
+                    break;
+                case KeyEvent.VK_P:
+                    if (timer.isRunning()) {
+                        timer.stop();
+//                        GameUI.updateGameState("Game paused");
+                    } else {
+                        timer.start();
+                    //    GameUI.updateGameState("Game on");
+                    }
                     break;
             }
+            repaint();
         }
     }
-
 
 }

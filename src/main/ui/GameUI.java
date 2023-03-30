@@ -2,14 +2,12 @@ package ui;
 
 import model.Board;
 import model.PlayersList;
-import model.exceptions.EmptyListException;
-import model.exceptions.OutOfBoundException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameUI extends JFrame implements ActionListener {
+public class GameUI extends JFrame {
     private static final int WIDTH = 450;
     private static final int HEIGHT = 540;
     private static final int CONTROL_PANEL_WIDTH = 150;
@@ -21,13 +19,13 @@ public class GameUI extends JFrame implements ActionListener {
     private Board board;
     private JPanel controlPanel;
     private JLabel scoreLabel;
+    private static JLabel stateLabel;
     private JButton pauseButton;
-    private PauseDialog pauseDialog;
+
 
 
     public GameUI(PlayersList pl, int index) {
-        setTitle("My Game");
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Tetris");
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         // create board panel
@@ -46,13 +44,6 @@ public class GameUI extends JFrame implements ActionListener {
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(scoreLabel);
 
-        // create pause button
-        pauseButton = new JButton("Pause");
-        pauseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        pauseButton.addActionListener(this);
-        controlPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        controlPanel.add(pauseButton);
-
         // add board panel and control panel to frame
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(boardPanel, BorderLayout.WEST);
@@ -61,7 +52,6 @@ public class GameUI extends JFrame implements ActionListener {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("lol");
                 e.getWindow().dispose();
             }
         });
@@ -77,61 +67,8 @@ public class GameUI extends JFrame implements ActionListener {
         boardPanel.setBackground(Color.WHITE);
     }
 
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == pauseButton) {
-            pauseDialog = new PauseDialog(this);
-            pauseDialog.setVisible(true);
-        }
-    }
-
-
-
-    private class PauseDialog extends JDialog implements ActionListener {
-
-        private JButton quitButton;
-        private JButton continueButton;
-
-        public PauseDialog(JFrame parent) {
-            super(parent, "Paused", true);
-            setPreferredSize(new Dimension(300, 150));
-
-            JPanel buttonPanel = new JPanel();
-            buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
-            buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-            quitButton = new JButton("Quit");
-            quitButton.addActionListener(this);
-            buttonPanel.add(Box.createHorizontalGlue());
-            buttonPanel.add(quitButton);
-            buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
-
-            continueButton = new JButton("Continue");
-            continueButton.addActionListener(this);
-            buttonPanel.add(continueButton);
-            buttonPanel.add(Box.createHorizontalGlue());
-
-            getContentPane().setLayout(new BorderLayout());
-            getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-
-            pack();
-            setLocationRelativeTo(parent);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == quitButton) {
-                dispose();
-                System.exit(0);
-            } else if (e.getSource() == continueButton) {
-                dispose();
-            }
-        }
-    }
-
     public void updateScore(int score) {
-        scoreLabel.setText(String.valueOf(score));
+        scoreLabel.setText("Score : " + String.valueOf(score));
     }
 
     public void transferFinalScoreToPlayer(int score) {
@@ -141,7 +78,5 @@ public class GameUI extends JFrame implements ActionListener {
           // all good.
         }
     }
-//    public static void main(String[] args) {
-//        new GameUI();
-//    }
+
 }
