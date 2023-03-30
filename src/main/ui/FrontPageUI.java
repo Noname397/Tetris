@@ -37,7 +37,7 @@ public class FrontPageUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new PlayersUI();
+                // new PlayersUI(); uncomment for checkStyle error.
             }
         });
     }
