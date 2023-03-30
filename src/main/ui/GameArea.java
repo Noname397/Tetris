@@ -7,14 +7,18 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GameArea extends JPanel {
+    private GameUI gameUI;
     private int gridRow;
     private int gridCol;
     private int gridCellSize;
     private Timer timer;
     private Board board;
+    private boolean isPaused;
     private static int [] speed = {800,600,400,300,250,200,175};
 
-    public GameArea(int width,int height,Board board) {
+    public GameArea(int width,int height,Board board, GameUI gameUI) {
+        this.gameUI = gameUI;
+
         Rectangle r = new Rectangle(width,height);
         setBounds(r);
         System.out.println(getHeight());
@@ -23,6 +27,8 @@ public class GameArea extends JPanel {
         setPreferredSize(new Dimension(width,height));
         setFocusable(true);
         addKeyListener(new TAdapter());
+
+
 
         this.board = board;
         gridRow = this.board.getBoardHeight();
@@ -37,6 +43,8 @@ public class GameArea extends JPanel {
             }
         });
         timer.start();
+
+        isPaused = false;
     }
 
     @Override
@@ -66,9 +74,12 @@ public class GameArea extends JPanel {
     }
 
     private void updateGame() {
+        gameUI.updateScore(board.getScore());
         if (board.isGameFinished()) {
             timer.stop();
-            System.out.println("Score: " + board.getScore());
+            int finalScore = board.getScore();
+            System.out.println("Score: " + finalScore);
+            gameUI.transferFinalScoreToPlayer(finalScore);
         }
         if (board.isGamePaused()) {
             return;
@@ -128,11 +139,6 @@ public class GameArea extends JPanel {
                     }
                     repaint();
                     break;
-                case KeyEvent.VK_P:
-                    System.out.println("pause");
-                    board.setGamePaused();
-                    repaint();
-                    break;
                 case KeyEvent.VK_SPACE:
                     System.out.println("space");
                     board.dropDown();
@@ -141,8 +147,6 @@ public class GameArea extends JPanel {
             }
         }
     }
-
-
 
 
 }

@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -21,6 +23,7 @@ public class PlayersUI {
     private JButton removeBtn;
     private JButton saveBtn;
     private JButton loadBtn;
+    private JButton scoreBtn;
     private JButton startGameBtn;
     private JList<String> list;
     private DefaultListModel<String> model;
@@ -37,14 +40,6 @@ public class PlayersUI {
         model = new DefaultListModel<>();
         list = new JList<>(model);
 
-//        frame = new JFrame("Tetris");
-////        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        frame.setSize(400,300);
-//        frame.setLocationRelativeTo(null); // center the JFrame on the screen
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setLayout(new BorderLayout());
-//        frame.add(new JScrollPane(list), BorderLayout.CENTER);
-//        frame.setVisible(true);
         playersList = new PlayersList();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -63,6 +58,7 @@ public class PlayersUI {
         setSaveButton();
         setLoadButton();
         setStartGameBtn();
+        setScoresButton();
         frame.add(btnPanel, BorderLayout.SOUTH);
 
     }
@@ -79,7 +75,7 @@ public class PlayersUI {
                 int selectedIndex = list.getSelectedIndex();
                 if (selectedIndex != -1) {
                     // new game;
-                    new GameUI();
+                    new GameUI(playersList, selectedIndex);
                 }
             }
         });
@@ -97,6 +93,7 @@ public class PlayersUI {
                 try {
                     playersList.addPlayer(new Player(input));
                     model.addElement(input);
+                    System.out.println(input + "'s added to the list");
                 } catch (EmptyNameException ex) {
                     System.out.println("Name must be not empty");
                     JOptionPane.showMessageDialog(frame, "Please enter some text.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -179,5 +176,41 @@ public class PlayersUI {
                 System.out.println("Empty list");
             }
         }
+    }
+
+    private void setScoresButton() {
+        scoreBtn = new JButton("View score");
+        scoreBtn.setBounds(250,50,50,50);
+        //loadBtn.setBackground(Color.PINK);
+        btnPanel.add(scoreBtn);
+        scoreBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DefaultListModel<String> model = new DefaultListModel<>();
+                JList<String> scoreList = new JList<>(model);
+
+                JFrame scoreBoard = new JFrame("Leaderboard");
+                scoreBoard.setSize(500,600);
+                scoreBoard.setVisible(true);
+                scoreBoard.setLayout(new BorderLayout());
+                scoreBoard.add(new JScrollPane(scoreList), BorderLayout.CENTER);
+
+
+                for (int i = 0;i < playersList.length();++i) {
+                    try {
+                        int score = playersList.index(i).getScore();
+                        model.addElement("Player " + (i + 1) + ": " + String.valueOf(score));
+                    } catch (Exception exception) {
+                        // all good.
+                    }
+                }
+
+                scoreBoard.addWindowListener(new WindowAdapter() {
+                    public void windowClosing(WindowEvent e) {
+                        scoreBoard.setVisible(false);
+                    }
+                });
+            }
+        });
     }
 }

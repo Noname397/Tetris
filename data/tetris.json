@@ -1,10 +1,4 @@
-{"PlayersList": [
-    {
-        "score": 0,
-        "name": "a"
-    },
-    {
-        "score": 0,
-        "name": "b"
-    }
-]}
+{"PlayersList": [{
+    "score": 0,
+    "name": "a"
+}]}

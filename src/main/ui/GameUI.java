@@ -1,6 +1,9 @@
 package ui;
 
 import model.Board;
+import model.PlayersList;
+import model.exceptions.EmptyListException;
+import model.exceptions.OutOfBoundException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +15,8 @@ public class GameUI extends JFrame implements ActionListener {
     private static final int CONTROL_PANEL_WIDTH = 150;
     private static final int BOARD_WIDTH = WIDTH - CONTROL_PANEL_WIDTH;
 
+    private PlayersList playersList;
+    private int playerIndex;
     private JPanel boardPanel;
     private Board board;
     private JPanel controlPanel;
@@ -19,21 +24,17 @@ public class GameUI extends JFrame implements ActionListener {
     private JButton pauseButton;
     private PauseDialog pauseDialog;
 
-    private static final int PERIOD_INTERVAL = 300;
-    private Timer timer;
 
-
-    public GameUI() {
+    public GameUI(PlayersList pl, int index) {
         setTitle("My Game");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         // create board panel
-//        boardPanel = new GameArea(BOARD_WIDTH,HEIGHT);
-//        boardPanel.setPreferredSize(new Dimension(BOARD_WIDTH, HEIGHT));
-//        boardPanel.setBackground(Color.WHITE);
         board = new Board();
         setGameArea(board);
+        playersList = pl;
+        playerIndex = index;
 
         // create control panel
         controlPanel = new JPanel();
@@ -57,6 +58,13 @@ public class GameUI extends JFrame implements ActionListener {
         getContentPane().add(boardPanel, BorderLayout.WEST);
         getContentPane().add(controlPanel, BorderLayout.EAST);
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("lol");
+                e.getWindow().dispose();
+            }
+        });
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -64,7 +72,7 @@ public class GameUI extends JFrame implements ActionListener {
     }
 
     public void setGameArea(Board board) {
-        boardPanel = new GameArea(BOARD_WIDTH,HEIGHT, board);
+        boardPanel = new GameArea(BOARD_WIDTH,HEIGHT, board, this);
         boardPanel.setPreferredSize(new Dimension(BOARD_WIDTH, HEIGHT));
         boardPanel.setBackground(Color.WHITE);
     }
@@ -122,7 +130,18 @@ public class GameUI extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        new GameUI();
+    public void updateScore(int score) {
+        scoreLabel.setText(String.valueOf(score));
     }
+
+    public void transferFinalScoreToPlayer(int score) {
+        try {
+            playersList.index(playerIndex).setScore(score);
+        } catch (Exception e) {
+          // all good.
+        }
+    }
+//    public static void main(String[] args) {
+//        new GameUI();
+//    }
 }
