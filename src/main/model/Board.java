@@ -265,7 +265,10 @@ public class Board {
         int shapeWidth = curPiece.getColumn();
         for (int i = curX; i < curX + shapeHeight;++i) {
             for (int j = curY; j < curY + shapeWidth;++j) {
-                board[i][j] += curPiece.getCoords()[i - curX][j - curY];
+                //board[i][j] += curPiece.getCoords()[i - curX][j - curY];
+                if (board[i][j] == 0) {
+                    board[i][j] = curPiece.getCoords()[i - curX][j - curY];
+                }
                 if (backGroundBoard[i][j] == Color.WHITE && curPiece.getCoords()[i - curX][j - curY] == 1) {
                     backGroundBoard[i][j] = curPiece.getColor();
                 }
