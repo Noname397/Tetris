@@ -17,5 +17,18 @@ Some of my user stories include:
 - As a user, when I select the quit option from the application menu, I want to be reminded to save my list of players to file and have the option to do so or not.
 - As a user, when I start the application, I want to be given the option to load my list of players from the file.
 
+## Instruction for graders
+
+     
+- To add/remove a player in the list, simply click on the add/remove button.
+- To load the players in the list, click on the load button, the saved list of players will appear.
+- To save the players in the list, click on the save button.
+- To view the most recent score for each player, click on the view score.
+- To play tetris:
+1. Using left, right arrow to move the falling piece to the left/right.
+2. To immediately drop the following piece, click on space.
+3. To rotate the shape, click on the up key arrow.
+4. When the game is unable to continue (not enough space for new Tetris shape), a window display "Game over".
+
 Source:
 TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp
