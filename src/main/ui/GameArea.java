@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+// The panel where game happens.
 public class GameArea extends JPanel {
     private GameUI gameUI;
     private int gridRow;
@@ -16,12 +17,11 @@ public class GameArea extends JPanel {
     private boolean isPaused;
     private int [] speed = {800,600,400,300,250,200,175};
 
+    // EFFECTS: create a game area.
     public GameArea(int width,int height,Board board, GameUI gameUI) {
         this.gameUI = gameUI;
         Rectangle r = new Rectangle(width,height);
         setBounds(r);
-//        System.out.println(getHeight());
-//        System.out.println(getWidth());
         setPreferredSize(new Dimension(width,height));
         setBackground(Color.WHITE);
         setFocusable(true);
@@ -31,8 +31,6 @@ public class GameArea extends JPanel {
         gridRow = this.board.getBoardHeight();
         gridCol = this.board.getBoardWidth();
         gridCellSize = getWidth() / gridCol;
-
-//        System.out.println(gridCellSize);
 
         timer = new Timer(800, new ActionListener() {
             @Override
@@ -46,6 +44,8 @@ public class GameArea extends JPanel {
         isPaused = false;
     }
 
+
+    // EFFECTS: paint the game with grid, draw the background and current falling piece.
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -58,6 +58,7 @@ public class GameArea extends JPanel {
         drawCurrentPiece(g);
     }
 
+    // EFFECTS: paint the already fallen tetris pieces.
     private void drawBackGround(Graphics g) {
         for (int i = 0;i < gridRow;++i) {
             for (int j = 0;j < gridCol;++j) {
@@ -72,13 +73,15 @@ public class GameArea extends JPanel {
         }
     }
 
+    // EFFECTS: update the current state of the game.
     private void updateGame() {
         gameUI.updateScore(board.getScore());
         if (board.isGameFinished()) {
             timer.stop();
             int finalScore = board.getScore();
-           // System.out.println("Score: " + finalScore);
+            // window pop up game is over.
             gameUI.transferFinalScoreToPlayer(finalScore);
+            JOptionPane.showMessageDialog(this, "Game Over");
         }
         if (board.isGamePaused()) {
             return;
@@ -91,6 +94,7 @@ public class GameArea extends JPanel {
         }
     }
 
+    // EFFECTS: draw the current falling piece.
     private void drawCurrentPiece(Graphics g) {
         Shape shape = board.getCurPiece();
         int row = shape.getRow();
@@ -109,6 +113,7 @@ public class GameArea extends JPanel {
         }
     }
 
+    // EFFECTS: process the state of the board on keypressed.
     private class TAdapter extends KeyAdapter {
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
@@ -135,6 +140,7 @@ public class GameArea extends JPanel {
         }
     }
 
+    // EFFECTS: convert the timer to the opposite state.
     public void changeTimer() {
         if ((timer.isRunning())) {
             timer.stop();

@@ -5,16 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// The first page when user enter the game.
 public class FrontPageUI {
     private JButton startBtn;
     private JFrame frame;
     private JButton quitBtn;
     private JPanel btnPanel;
 
+    // MODIFIES: this
+    // EFFECTS: create a window frame with specified size and button panel (start and quit buttons).
     public FrontPageUI() {
-//        JFrame frame = new JFrame("Tetris");
         frame = new JFrame("Tetris");
-//        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null); // center the JFrame on the screen
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,12 +28,11 @@ public class FrontPageUI {
         frame.add(btnPanel,BorderLayout.SOUTH);
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: set up the start button.
     private void setStartButton() {
         startBtn = new JButton("Start");
-        //startBtn.setBounds(50,50,100,100);
-        //startBtn.setBackground(Color.YELLOW);
-        btnPanel.add(startBtn); //frame.getContentPane().add(startButton);
+        btnPanel.add(startBtn);
         startBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,11 +42,11 @@ public class FrontPageUI {
         });
     }
 
+    // MODIFIES: this
+    // EFFECTS: set up quit button.
     private void setQuitButton() {
         quitBtn = new JButton("Quit");
-        //quitBtn.setBounds(250,50,100,100);
-        //quitBtn.setBackground(Color.blue);
-        btnPanel.add(quitBtn);//frame.getContentPane().add(quitBtn);
+        btnPanel.add(quitBtn);
         quitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

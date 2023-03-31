@@ -17,6 +17,7 @@ import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// Players UI with Jlist
 public class PlayersUI {
     private JFrame frame;
     private JButton addBtn;
@@ -34,7 +35,7 @@ public class PlayersUI {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-
+    // EFFECTS: create a PlayersUI.
     public PlayersUI() {
         // Create a new JList with a default list model
         model = new DefaultListModel<>();
@@ -63,6 +64,7 @@ public class PlayersUI {
 
     }
 
+    // EFFECTS: set start button game.
     private void setStartGameBtn() {
         startGameBtn = new JButton("Start game");
         startGameBtn.setBounds(350,50,30,30);
@@ -80,6 +82,7 @@ public class PlayersUI {
         });
     }
 
+    // EFFECTS: set add player button.
     private void setAddButton() {
         addBtn = new JButton("Add");
         addBtn.setBounds(50,50,30,30);
@@ -102,6 +105,7 @@ public class PlayersUI {
         });
     }
 
+    // EFFECTS: set remove player button.
     private void setRemoveButton() {
         removeBtn = new JButton("Remove");
         removeBtn.setBounds(100,50,30,30);
@@ -124,6 +128,7 @@ public class PlayersUI {
         });
     }
 
+    // EFFECTS: save the jlist players to json file.
     private void setSaveButton() {
         saveBtn = new JButton("Save");
         saveBtn.setBounds(150,50,30,30);
@@ -145,6 +150,7 @@ public class PlayersUI {
         });
     }
 
+    // EFFECTS: load the players from json file to jlist.
     private void setLoadButton() {
         loadBtn = new JButton("Load");
         loadBtn.setBounds(250,50,50,50);
@@ -164,6 +170,7 @@ public class PlayersUI {
         });
     }
 
+    // EFFECTS: add players to jlist
     private void addPlayersToModel() {
         model.clear();
         for (int i = 0; i < playersList.length(); ++i) {
@@ -177,16 +184,15 @@ public class PlayersUI {
         }
     }
 
+    // EFFECTS: view the most recent score for each player.
     private void setScoresButton() {
         scoreBtn = new JButton("View score");
-//        scoreBtn.setBounds(250,50,50,50);
-//        //loadBtn.setBackground(Color.PINK);
         btnPanel.add(scoreBtn);
         scoreBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultListModel<String> model = new DefaultListModel<>();
-                JList<String> scoreList = new JList<>(model);
+                DefaultListModel<String> modelScore = new DefaultListModel<>();
+                JList<String> scoreList = new JList<>(modelScore);
 
                 JFrame scoreBoard = new JFrame("Leaderboard");
                 scoreBoard.setSize(500,600);
@@ -194,7 +200,7 @@ public class PlayersUI {
                 scoreBoard.setLayout(new BorderLayout());
                 scoreBoard.add(new JScrollPane(scoreList), BorderLayout.CENTER);
 
-                addPlayersToModel();
+                addScoreToLeaderBoard(modelScore);
 
                 scoreBoard.addWindowListener(new WindowAdapter() {
                     public void windowClosing(WindowEvent e) {
@@ -204,4 +210,19 @@ public class PlayersUI {
             }
         });
     }
+
+    // EFFECTS: add score to the leaderBoard.
+    private void addScoreToLeaderBoard(DefaultListModel<String> modelScore) {
+        modelScore.clear();
+        for (int i = 0;i < playersList.length();++i) {
+            try {
+                int score = playersList.index(i).getScore();
+                String name = playersList.index(i).getName();
+                modelScore.addElement("Player " + name + " : " + String.valueOf(score));
+            } catch (Exception exception) {
+                // all good.
+            }
+        }
+    }
+
 }

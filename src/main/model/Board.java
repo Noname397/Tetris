@@ -78,7 +78,6 @@ public class Board {
         int[][] newBoard = new int[row][col];
         Color [][] newBackgroundBoard = new Color[row][col];
         int newRow = row - 1;
-
         for (int i = row - 1; i >= 0; i--) {
             if (!canRemoveLine(i)) {
                 // Copy the current row to the new board
@@ -91,7 +90,6 @@ public class Board {
                 ++numRemoved;
             }
         }
-
         // Fill the remaining rows with 0's
         while (newRow >= 0) {
             for (int j = 0; j < col; j++) {
@@ -265,7 +263,6 @@ public class Board {
         int shapeWidth = curPiece.getColumn();
         for (int i = curX; i < curX + shapeHeight;++i) {
             for (int j = curY; j < curY + shapeWidth;++j) {
-                //board[i][j] += curPiece.getCoords()[i - curX][j - curY];
                 if (board[i][j] == 0) {
                     board[i][j] = curPiece.getCoords()[i - curX][j - curY];
                 }
@@ -276,6 +273,7 @@ public class Board {
         }
     }
 
+    // getter
     public Color[][] getBackGroundBoard() {
         return backGroundBoard;
     }
