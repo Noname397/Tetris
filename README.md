@@ -18,7 +18,7 @@ Some of my user stories include:
 - As a user, when I start the application, I want to be given the option to load my list of players from the file.
 
 ## Instruction for graders
-
+You may need to start the game at least twice(it usually does not work out for the first time )
      
 - To add/remove a player in the list, simply click on the add/remove button.
 - To load the players in the list, click on the load button, the saved list of players will appear.
@@ -39,5 +39,12 @@ Player c is added to the playerList Mon Apr 10 17:58:54 PDT 2023
 Player b is removed from the playerList Mon Apr 10 17:58:59 PDT 2023
 Player d is added to the playerList Mon Apr 10 17:59:02 PDT 2023
 
+### Phase 4 task 3:
+After reviewing my code and analyzing the design, I have identified a potential refactoring that could improve the 
+codebase. The current class hierarchy is quite complex and could be simplified to make it easier to reason about. 
+For example, the GameArea class could be eliminated, and its functionality could be moved to the GameUI class.
+Therefore, simplifying class hierarchy would be what I do to optimize the codebase.
+
 Source:
 TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp
+Tetris Tutorial: https://zetcode.com/javagames/tetris/
