@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Player;
 import model.PlayersList;
 import model.exceptions.EmptyListException;
@@ -10,10 +12,7 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -61,7 +60,21 @@ public class PlayersUI {
         setStartGameBtn();
         setScoresButton();
         frame.add(btnPanel, BorderLayout.SOUTH);
+        addClosingMethod();
+    }
 
+    private void addClosingMethod() {
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventLog events = EventLog.getInstance();
+                for (Event next : events) {
+                    System.out.println(next.getDescription() + " " + next.getDate());
+                }
+                // Code here to print out all logged events before quitting
+                System.exit(0);
+            }
+        });
     }
 
     // EFFECTS: set start button game.

@@ -17,22 +17,27 @@ public class PlayersList implements Writable {
         this.listOfPlayers = new ArrayList<Player>();
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, EventLog
     // EFFECTS: add a new player to the end of the list.
     public void addPlayer(Player p) {
         this.listOfPlayers.add(p);
+        EventLog.getInstance().logEvent(new Event("Player " + p.getName() + " is added to the playerList"));
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, EventLog
     // EFFECTS: if the list is empty, throw new EmptyListException, or if the index is out of
     // bound, throw new OutOfBoundException(), otherwise remove player from the list based on
     // the index.
     public void removePlayer(int index) throws OutOfBoundException, EmptyListException {
         if (listOfPlayers.size() == 0) {
+            EventLog.getInstance().logEvent(new Event("Removing player in an empty list of players"));
             throw new EmptyListException();
         } else if (0 > index || index >= listOfPlayers.size()) {
+            EventLog.getInstance().logEvent(new Event("Choosing out of bound index for removing players"));
             throw new OutOfBoundException();
         }
+        EventLog.getInstance().logEvent(new Event("Player " + listOfPlayers.get(index).getName()
+                + " is removed from the playerList"));
         this.listOfPlayers.remove(index);
     }
 

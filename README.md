@@ -30,5 +30,14 @@ Some of my user stories include:
 3. To rotate the shape, click on the up key arrow.
 4. When the game is unable to continue (not enough space for new Tetris shape), a window display "Game over".
 
+### Phase 4 task 2:
+Sample example for Event Log:
+
+Player a is added to the playerList Mon Apr 10 17:58:50 PDT 2023
+Player b is added to the playerList Mon Apr 10 17:58:52 PDT 2023
+Player c is added to the playerList Mon Apr 10 17:58:54 PDT 2023
+Player b is removed from the playerList Mon Apr 10 17:58:59 PDT 2023
+Player d is added to the playerList Mon Apr 10 17:59:02 PDT 2023
+
 Source:
 TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp

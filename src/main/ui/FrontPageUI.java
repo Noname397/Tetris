@@ -1,5 +1,8 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -50,6 +53,10 @@ public class FrontPageUI {
         quitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                EventLog events = EventLog.getInstance();
+                for (Event next : events) {
+                    System.out.println(next.getDescription() + " " + next.getDate());
+                }
                 System.exit(0);
             }
         });
