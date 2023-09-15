@@ -34,9 +34,13 @@ You may need to start the game at least twice(it usually does not work out for t
 Sample example for Event Log:
 
 Player a is added to the playerList Mon Apr 10 17:58:50 PDT 2023
+
 Player b is added to the playerList Mon Apr 10 17:58:52 PDT 2023
+
 Player c is added to the playerList Mon Apr 10 17:58:54 PDT 2023
+
 Player b is removed from the playerList Mon Apr 10 17:58:59 PDT 2023
+
 Player d is added to the playerList Mon Apr 10 17:59:02 PDT 2023
 
 ### Phase 4 task 3:
@@ -46,5 +50,4 @@ For example, the GameArea class could be eliminated, and its functionality could
 Therefore, simplifying class hierarchy would be what I do to optimize the codebase.
 
 Source:
-TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp
 Tetris Tutorial: https://zetcode.com/javagames/tetris/
